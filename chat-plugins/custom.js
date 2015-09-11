@@ -30,6 +30,62 @@ exports.commands = {
 	
 	},
 	
+	jugando: 'afk',
+	ocupado: 'afk',  
+	comiendo: 'afk', 
+	durmiendo: 'afk', 
+	grabando: 'afk',	
+	programando: 'afk',
+	ausente: 'afk',
+	away: 'afk',
+	afk: function(target, room, user, connection, cmd) {
+		if (!this.canTalk) return false;
+		var t = 'Away';
+		switch (cmd) {
+			case 'jugando':
+			t = 'ⒿⓊⒼⒶⓃⒹⓄ';  
+			s = 'Jugando'
+			break;  
+                        case 'comiendo':
+			t = 'ⒸⓄⓂⒾⒺⓃⒹⓄ';
+			s = 'Comiendo'
+			break;  
+                        case 'grabando':
+			t = 'ⒼⓇⒶⒷⒶⓃⒹⓄ';
+			s = 'Grabando'
+			break;			
+			case 'durmiendo':
+			t = 'ⒹⓊⓇⓂⒾⒺⓃⒹⓄ';
+			s = 'Durmiendo'
+			break; 
+			case 'programando':
+			t = 'ⓅⓇⓄⒼⓇⒶⓂⒶⓃⒹⓄ';
+			s = 'Programando'
+			break;
+			case 'ocupado':
+			t = 'ⓄⒸⓊⓅⒶⒹⓄ';
+			s = 'Ocupado'
+			break;
+			default:
+			t = 'ⒶⓊⓈⒺⓃⓉⒺ'
+			s = 'Ausente'
+			break;
+		},
+	
+	ayudaestado: 'afkhelvp,	
+	afkhelp: function () {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox("<strong> Comandos de Afk : </strong><br />" +
+			  "/ausente <br />" +
+                          "/ocupado <br />" +
+			  "/comiendo <br />" +
+			  "/aburrido <br />" +
+                          "/durmiendo <br />" +
+                          "/grabando (Especialmente para los youtubers)<br />" +
+                          "/programando (Especialmente para los programadores del servidor).<br />" +
+                          "<br />" );
+	},
+	
 	postimage: 'image',
 	image: function (target, room, user) {
 		if (!target) return this.sendReply('Usage: /image link, size');
