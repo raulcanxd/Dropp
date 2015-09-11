@@ -72,7 +72,7 @@ exports.commands = {
 			break;
 		},
 	
-	ayudaestado: 'afkhelvp,	
+	ayudaestado: 'afkhelp,	
 	afkhelp: function () {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox("<strong> Comandos de Afk : </strong><br />" +
