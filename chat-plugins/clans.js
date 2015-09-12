@@ -42,7 +42,7 @@
 			"/setlogoclan &lt;clan>,&lt;logo> - Establece un logotipo para un clan.<br />" +
 			"/setsalaclan &lt;clan>,&lt;sala> - Establece una sala para un clan.<br />" +
 			"/setgxeclan &lt;clan>,&lt;wins>,&lt;losses>,&lt;draws> - Establece la puntuación de un clan.<br />" +
-			"/serankclan &lt;clan>,&lt;puntos> - Establece la puntuación de un clan.<br />" +
+			"/setrankclan &lt;clan>,&lt;puntos> - Establece la puntuación de un clan.<br />" +
 			"/settitleclan &lt;clan>&lt;puntos> - Estable un título para el clan.<br />"
 		);
 	},
