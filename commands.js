@@ -203,7 +203,7 @@ var commands = exports.commands = {
 				target = '/invite ' + targetRoom.id;
 				break;
 			default:
-				return this.errorReply("The command '/" + innerCmd + "' was unrecognized or unavailable in private messages. To send a message starting with '/" + innerCmd + "', type '//" + innerCmd + "'.");
+				return this.errorReply("El comando '/" + innerCmd + "' no fue reconocido. Para enviar un mensaje que empiece por '/" + innerCmd + "', escriba  '//" + innerCmd + "'.");
 			}
 		}
 
@@ -256,6 +256,7 @@ var commands = exports.commands = {
 	},
 	backhelp: ["/back - Unblocks challenges and/or private messages, if either are blocked."],
 
+	crearsala:'makechatroom',
 	makeprivatechatroom: 'makechatroom',
 	makechatroom: function (target, room, user, connection, cmd) {
 		if (!this.can('makeroom')) return;
@@ -270,37 +271,38 @@ var commands = exports.commands = {
 		var id = toId(target);
 		if (!id) return this.parse('/help makechatroom');
 		// Check if the name already exists as a room or alias
-		if (Rooms.search(id)) return this.sendReply("The room '" + target + "' already exists.");
+		if (Rooms.search(id)) return this.sendReply("La sala '" + target + "' ya existe.");
 		if (Rooms.global.addChatRoom(target)) {
 			if (cmd === 'makeprivatechatroom') {
 				var targetRoom = Rooms.search(target);
 				targetRoom.isPrivate = true;
 				targetRoom.chatRoomData.isPrivate = true;
 				Rooms.global.writeChatRoomData();
-				return this.sendReply("The private chat room '" + target + "' was created.");
+				return this.sendReply("La sala de chat privada '" + target + "'ha sido creada exitosamente.");
 			} else {
-				return this.sendReply("The chat room '" + target + "' was created.");
+				return this.sendReply("La sala de chat '" + target + "' ha sido creada exitosamente.");
 			}
 		}
 		return this.sendReply("An error occurred while trying to create the room '" + target + "'.");
 	},
-	makechatroomhelp: ["/makechatroom [roomname] - Creates a new room named [roomname]. Requires: ~"],
+	makechatroomhelp: ["/makechatroom o /crearsala [nombre] - Crea una nueva sala denominada [nombre].Requiere: ~"],
 
+	borrarsala: 'deregisterchatroom',
 	deregisterchatroom: function (target, room, user) {
 		if (!this.can('makeroom')) return;
 		var id = toId(target);
 		if (!id) return this.parse('/help deregisterchatroom');
 		var targetRoom = Rooms.search(id);
-		if (!targetRoom) return this.sendReply("The room '" + target + "' doesn't exist.");
+		if (!targetRoom) return this.sendReply("La sala de chat '" + target + "' no existe.");
 		target = targetRoom.title || targetRoom.id;
 		if (Rooms.global.deregisterChatRoom(id)) {
-			this.sendReply("The room '" + target + "' was deregistered.");
+			this.sendReply("La sala de chat '" + target + "'ha sido borrada exitosamente.");
 			this.sendReply("It will be deleted as of the next server restart.");
 			return;
 		}
 		return this.sendReply("The room '" + target + "' isn't registered.");
 	},
-	deregisterchatroomhelp: ["/deregisterchatroom [roomname] - Deletes room [roomname] after the next server restart. Requires: ~"],
+	deregisterchatroomhelp: ["/deregisterchatroom o /borrarsala [nombre] - Elimina una sala de chat [nombre] y los cambios se haran efectivos despues del reinicio del servidor. Requiere: ~"],
 
 	hideroom: 'privateroom',
 	hiddenroom: 'privateroom',

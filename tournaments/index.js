@@ -818,7 +818,7 @@ var commands = {
 				if (reason.length > MAX_REASON_LENGTH) return this.sendReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 			}
 			if (tournament.disqualifyUser(targetUser, this, reason)) {
-				this.privateModCommand("(" + targetUser.name + " ha sido descalificado del torneo po " + user.name + (reason ? " (" + reason + ")" : "") + ")");
+				this.privateModCommand("(" + targetUser.name + " ha sido descalificado del torneo por " + user.name + (reason ? " (" + reason + ")" : "") + ")");
 			}
 		},
 		autostart: 'setautostart',
