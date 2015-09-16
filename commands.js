@@ -97,7 +97,7 @@ var commands = exports.commands = {
 
 		user.avatar = avatar;
 		if (!parts[1]) {
-			this.sendReply("Avatar changed to:\n" +
+			this.sendReply("Tu avatar a cambiado a:\n" +
 				'|raw|<img src="//play.pokemonshowdown.com/sprites/trainers/' + (typeof avatar === 'string' ? avatar.substr(1) : avatar) + '.png" alt="" width="80" height="80" />');
 		}
 	},
@@ -127,6 +127,7 @@ var commands = exports.commands = {
 	},
 	replyhelp: ["/reply OR /r [message] - Send a private message to the last person you received a message from, or sent a message to."],
 
+	mp: 'msg'
 	pm: 'msg',
 	whisper: 'msg',
 	w: 'msg',
@@ -135,16 +136,16 @@ var commands = exports.commands = {
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
 		if (!target) {
-			this.sendReply("You forgot the comma.");
+			this.sendReply("Te falto una coma(,)");
 			return this.parse('/help msg');
 		}
 		this.pmTarget = (targetUser || this.targetUsername);
 		if (!targetUser || !targetUser.connected) {
 			if (targetUser && !targetUser.connected) {
-				this.errorReply("User " + this.targetUsername + " is offline.");
+				this.errorReply("El usuario " + this.targetUsername + " esta desconectado.");
 				return;
 			} else {
-				this.errorReply("User "  + this.targetUsername + " not found. Did you misspell their name?");
+				this.errorReply("El usuario "  + this.targetUsername + " no esta disponible. ¿Escribistes bien su nombre?");
 				return this.parse('/help msg');
 			}
 			return;
@@ -163,17 +164,17 @@ var commands = exports.commands = {
 			return this.errorReply("You can only private message members of the moderation team (users marked by %, @, &, or ~) when locked.");
 		}
 		if (targetUser.locked && !user.can('lock')) {
-			return this.errorReply("This user is locked and cannot PM.");
+			return this.errorReply("Este usuario esta lockeado y no puede recibir mensajes.");
 		}
 		if (targetUser.ignorePMs && targetUser.ignorePMs !== user.group && !user.can('lock')) {
 			if (!targetUser.can('lock')) {
-				return this.errorReply("This user is blocking private messages right now.");
+				return this.errorReply("Este usuario está bloqueando mensajes privados ahora.");
 			} else if (targetUser.can('bypassall')) {
-				return this.errorReply("This admin is too busy to answer private messages right now. Please contact a different staff member.");
+				return this.errorReply("Este admin no esta dispoblie ahora mismo para responder mensajes privados.Por favor contacta a un miembro diferente del staff");
 			}
 		}
 		if (user.ignorePMs && user.ignorePMs !== targetUser.group && !targetUser.can('lock')) {
-			return this.errorReply("You are blocking private messages right now.");
+			return this.errorReply("No puedes enviar MPs ya que los tienes bloqueado");
 		}
 
 		target = this.canTalk(target, null, targetUser);
@@ -213,7 +214,7 @@ var commands = exports.commands = {
 		targetUser.lastPM = user.userid;
 		user.lastPM = targetUser.userid;
 	},
-	msghelp: ["/msg OR /whisper OR /w [username], [message] - Send a private message."],
+	msghelp: ["/mp o /msg [username],[mensaje] - envia un mensaje privado."],
 
 	blockpm: 'ignorepms',
 	blockpms: 'ignorepms',
@@ -234,7 +235,7 @@ var commands = exports.commands = {
 	unblockpms: 'unignorepms',
 	unignorepm: 'unignorepms',
 	unignorepms: function (target, room, user) {
-		if (!user.ignorePMs) return this.sendReply("You are not blocking private messages! To block, use /blockpms");
+		if (!user.ignorePMs) return this.sendReply("Usted no está bloqueando mensajes privados! Para bloquearlos use:/blockpms");
 		user.ignorePMs = false;
 		return this.sendReply("You are no longer blocking private messages.");
 	},
@@ -747,7 +748,7 @@ var commands = exports.commands = {
 
 		this.addModCommand("" + unbannedUserid + " ha sido desbaneado de la sala  " + room.id + " por " + user.name + ".");
 	},
-	roomunbanhelp: ["/roomunban [username] - Unbans the user from the room you are in. Requires: @ # & ~"],
+	roomunbanhelp: ["/roomunban [username] - Banea a un usuario de tu sala. Requiere: @ # & ~"],
 
 	autojoin: function (target, room, user, connection) {
 		Rooms.global.autojoinRooms(user, connection);
@@ -810,6 +811,7 @@ var commands = exports.commands = {
 	},
 	warnhelp: ["/warn OR /w [username], [reason] - Warns a user showing them the Pok\u00e9mon Showdown Rules and [reason] in an overlay. Requires: % @ # & ~"],
 
+	redireccionar: 'redir',
 	redirect: 'redir',
 	redir: function (target, room, user, connection) {
 		if (!target) return this.parse('/help redirect');
@@ -835,7 +837,7 @@ var commands = exports.commands = {
 		this.addModCommand("" + targetUser.name + " a sido redirigido a la sala " + roomName + " por " + user.name + ".");
 		targetUser.leaveRoom(room);
 	},
-	redirhelp: ["/redirect OR /redir [username], [roomname] - Attempts to redirect the user [username] to the room [roomname]. Requires: % @ & ~"],
+	redirhelp: ["/redirecionar O /redir [username], [roomname] - Redirecciona a un usuario de una sala a otra. Requires: % @ & ~"],
 
 	silenciar: 'mute',
 	m: 'mute',
@@ -944,8 +946,9 @@ var commands = exports.commands = {
 		targetUser.lock(false, userid);
 		return true;
 	},
-	lockhelp: ["/lock OR /l [username], [reason] - Locks the user from talking in all chats. Requires: % @ & ~"],
+	lockhelp: ["/lock OR /l [username], [reason] - Bloquea a un usuario de las salas de batalla, MPs y su derecho de hablar . Requires: % @ & ~"],
 
+	desbloquear: 'unlock',
 	unlock: function (target, room, user) {
 		if (!target) return this.parse('/help unlock');
 		if (!this.can('lock')) return false;
@@ -968,8 +971,9 @@ var commands = exports.commands = {
 			this.sendReply("El usuario '" + target + "' no estaba bloqueado.");
 		}
 	},
-	unlockhelp: ["/unlock [username] - Unlocks the user. Requires: % @ & ~"],
+	unlockhelp: ["/debloquear [username] - Desbloquea a un usuario. Requires: % @ & ~"],
 
+	banear: 'ban',
 	forceban: 'ban',
 	b: 'ban',
 	ban: function (target, room, user, connection, cmd) {
@@ -977,31 +981,31 @@ var commands = exports.commands = {
 
 		target = this.splitTarget(target);
 		var targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' does not exist.");
+		if (!targetUser) return this.sendReply("El usuario '" + this.targetUsername + "' no existe.");
 		if (target.length > MAX_REASON_LENGTH) {
-			return this.sendReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
+			return this.sendReply("La razón es demasiado larga. No puede exceder los " + MAX_REASON_LENGTH + " caracteres.");
 		}
 		if (!this.can('ban', targetUser)) return false;
 
 		if (Users.checkBanned(targetUser.latestIp) && !target && !targetUser.connected) {
-			var problem = " but was already banned";
-			return this.privateModCommand("(" + targetUser.name + " would be banned by " + user.name + problem + ".)");
+			var problem = " ya ha sido baneado";
+			return this.privateModCommand("(" + targetUser.name + " ha sido baneado por " + user.name + problem + ".)");
 		}
 
 		if (targetUser.confirmed) {
 			if (cmd === 'forceban') {
 				var from = targetUser.deconfirm();
-				ResourceMonitor.log("[CrisisMonitor] " + targetUser.name + " was banned by " + user.name + " and demoted from " + from.join(", ") + ".");
+				ResourceMonitor.log("[CrisisMonitor] " + targetUser.name + " ha sido baneado por " + user.name + " y ha sido demoteado en las siguientes salas " + from.join(", ") + ".");
 			} else {
-				return this.sendReply("" + targetUser.name + " is a confirmed user. If you are sure you would like to ban them use /forceban.");
+				return this.sendReply("" + targetUser.name + " es un usuario confirmado. Si esta seguro de que lo quiere Bannear use /forceban.");
 			}
 		} else if (cmd === 'forceban') {
-			return this.sendReply("Use /ban; " + targetUser.name + " is not a confirmed user.");
+			return this.sendReply("Usa /ban; " + targetUser.name + " no es un usuario confirmado.");
 		}
 
-		targetUser.popup("|modal|" + user.name + " has banned you." + (target ? "\n\nReason: " + target : "") + (Config.appealurl ? "\n\nIf you feel that your ban was unjustified, you can appeal:\n" + Config.appealurl : "") + "\n\nYour ban will expire in a few days.");
+		targetUser.popup("|modal|" + user.name + " te ha banneado." + (target ? "\n\nRason: " + target : "") + (Config.appealurl ? "\n\nSi usted siente que su ban fue injusto, puedes apelar a que tu desbaneo sea en:\n" + Config.appealurl : "") + "\n\nalgunos dias.");
 
-		this.addModCommand("" + targetUser.name + " was banned by " + user.name + "." + (target ? " (" + target + ")" : ""), " (" + targetUser.latestIp + ")");
+		this.addModCommand("" + targetUser.name + " fue baneado por " + user.name + "." + (target ? " (" + target + ")" : ""), " (" + targetUser.latestIp + ")");
 		var alts = targetUser.getAlts();
 		var acAccount = (targetUser.autoconfirmed !== targetUser.userid && targetUser.autoconfirmed);
 		if (alts.length) {
@@ -1011,7 +1015,7 @@ var commands = exports.commands = {
 				guests++;
 				return false;
 			});
-			this.privateModCommand("(" + targetUser.name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + alts.join(", ") + (guests ? " [" + guests + " guests]" : "") + ")");
+			this.privateModCommand("(" + targetUser.name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "alts banneadas: " + alts.join(", ") + (guests ? " [" + guests + " guests]" : "") + ")");
 			for (var i = 0; i < alts.length; ++i) {
 				this.add('|unlink|' + toId(alts[i]));
 			}
@@ -1023,11 +1027,12 @@ var commands = exports.commands = {
 		this.add('|unlink|hide|' + userid);
 		if (userid !== toId(this.inputUsername)) this.add('|unlink|hide|' + toId(this.inputUsername));
 		targetUser.ban(false, userid);
-		this.globalModlog("BAN", targetUser, " by " + user.name + (target ? ": " + target : ""));
+		this.globalModlog("BAN", targetUser, " por " + user.name + (target ? ": " + target : ""));
 		return true;
 	},
-	banhelp: ["/ban OR /b [username], [reason] - Kick user from all rooms and ban user's IP address with reason. Requires: @ & ~"],
+	banhelp: ["/banear o /ban [usuario], [razon] - Banea al user de todas las salas y banea su dirección IP. Requiere: @ & ~"],
 
+	desbanear: 'unban',
 	unban: function (target, room, user) {
 		if (!target) return this.parse('/help unban');
 		if (!this.can('ban')) return false;
@@ -1035,14 +1040,15 @@ var commands = exports.commands = {
 		var name = Users.unban(target);
 
 		if (name) {
-			this.addModCommand("" + name + " was unbanned by " + user.name + ".");
-			this.globalModlog("UNBAN", name, " by " + user.name);
+			this.addModCommand("" + name + " fue desbaneado por " + user.name + ".");
+			this.globalModlog("UNBAN", name, " por " + user.name);
 		} else {
-			this.sendReply("User '" + target + "' is not banned.");
+			this.sendReply("El usuario '" + target + "' no esta baneado.");
 		}
 	},
-	unbanhelp: ["/unban [username] - Unban a user. Requires: @ & ~"],
+	unbanhelp: ["/desbanear o /unban [usuario] - Desbanea a un usuario. Requiere: @ & ~"],
 
+	desbaneartodos: 'unbanall',
 	unbanall: function (target, room, user) {
 		if (!this.can('rangeban')) return false;
 		// we have to do this the hard way since it's no longer a global
@@ -1051,9 +1057,9 @@ var commands = exports.commands = {
 			var dict = Users[punishKeys[i]];
 			for (var entry in dict) delete dict[entry];
 		}
-		this.addModCommand("All bans and locks have been lifted by " + user.name + ".");
+		this.addModCommand("Todos los bans y locks fueron removidos por " + user.name + ".");
 	},
-	unbanallhelp: ["/unbanall - Unban all IP addresses. Requires: & ~"],
+	unbanallhelp: ["/unbanall - Desbanea todas las IP. Requiere: & ~"],
 
 	banip: function (target, room, user) {
 		target = target.trim();
@@ -1061,12 +1067,12 @@ var commands = exports.commands = {
 			return this.parse('/help banip');
 		}
 		if (!this.can('rangeban')) return false;
-		if (Users.bannedIps[target] === '#ipban') return this.sendReply("The IP " + (target.charAt(target.length - 1) === '*' ? "range " : "") + target + " has already been temporarily banned.");
+		if (Users.bannedIps[target] === '#ipban') return this.sendReply("La IP " + (target.charAt(target.length - 1) === '*' ? "range " : "") + target + " ya esta temporalmente baneada.");
 
 		Users.bannedIps[target] = '#ipban';
-		this.addModCommand("" + user.name + " temporarily banned the " + (target.charAt(target.length - 1) === '*' ? "IP range" : "IP") + ": " + target);
+		this.addModCommand("" + user.name + " baneo temporalmente " + (target.charAt(target.length - 1) === '*' ? "IP range" : "IP") + ": " + target);
 	},
-	baniphelp: ["/banip [ip] - Kick users on this IP or IP range from all rooms and bans it. Accepts wildcards to ban ranges. Requires: & ~"],
+	baniphelp: ["/banip [ip] - Banea la ip de un usuario. Requires: & ~"],
 
 	unbanip: function (target, room, user) {
 		target = target.trim();
@@ -1075,10 +1081,10 @@ var commands = exports.commands = {
 		}
 		if (!this.can('rangeban')) return false;
 		if (!Users.bannedIps[target]) {
-			return this.sendReply("" + target + " is not a banned IP or IP range.");
+			return this.sendReply("" + target + " no es un rango de IP o IP prohibido.");
 		}
 		delete Users.bannedIps[target];
-		this.addModCommand("" + user.name + " unbanned the " + (target.charAt(target.length - 1) === '*' ? "IP range" : "IP") + ": " + target);
+		this.addModCommand("" + user.name + " ha desbaneado " + (target.charAt(target.length - 1) === '*' ? "La ip" : "IP") + ": " + target);
 	},
 	unbaniphelp: ["/unbanip [ip] - Kick users on this IP or IP range from all rooms and bans it. Accepts wildcards to ban ranges. Requires: & ~"],
 
@@ -1110,18 +1116,19 @@ var commands = exports.commands = {
 	 * Moderating: Other
 	 *********************************************************/
 
+	nota:'modnote',
 	mn: 'modnote',
 	modnote: function (target, room, user, connection) {
 		if (!target) return this.parse('/help modnote');
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("You cannot do this while unable to talk.");
+		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("No puedes hacer esto mientras no puedas hablar.");
 
 		if (target.length > MAX_REASON_LENGTH) {
-			return this.sendReply("The note is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
+			return this.sendReply("La nota es demasiado larga. No puede exceder Los " + MAX_REASON_LENGTH + " caracteres.");
 		}
 		if (!this.can('receiveauthmessages', null, room)) return false;
-		return this.privateModCommand("(" + user.name + " notes: " + target + ")");
+		return this.privateModCommand("(" + user.name + " ha añadido la nota: " + target + ")");
 	},
-	modnotehelp: ["/modnote [note] - Adds a moderator note that can be read through modlog. Requires: % @ # & ~"],
+	modnotehelp: ["/modnote [note] - Añade una nota al modlog. Requires: % @ # & ~"],
 
 	globalpromote: 'promote',
 	promote: function (target, room, user, connection, cmd) {
@@ -1138,43 +1145,43 @@ var commands = exports.commands = {
 		var nextGroup = target;
 		if (target === 'deauth') nextGroup = Config.groupsranking[0];
 		if (!nextGroup) {
-			return this.sendReply("Please specify a group such as /globalvoice or /globaldeauth");
+			return this.sendReply("Por favor especificar un grupo valido como / globalvoice o / globaldeauth");
 		}
 		if (!Config.groups[nextGroup]) {
-			return this.sendReply("Group '" + nextGroup + "' does not exist.");
+			return this.sendReply("El grupo '" + nextGroup + "' no existe.");
 		}
 		if (Config.groups[nextGroup].roomonly) {
-			return this.sendReply("Group '" + nextGroup + "' does not exist as a global rank.");
+			return this.sendReply("El grupo '" + nextGroup + "' no existe como un rango global.");
 		}
 
 		var groupName = Config.groups[nextGroup].name || "regular user";
 		if (currentGroup === nextGroup) {
-			return this.sendReply("User '" + name + "' is already a " + groupName);
+			return this.sendReply("El usuario '" + name + "' ya era " + groupName);
 		}
 		if (!user.canPromote(currentGroup, nextGroup)) {
-			return this.sendReply("/" + cmd + " - Access denied.");
+			return this.sendReply("/" + cmd + " - Acceso denegado.");
 		}
 
 		if (!Users.setOfflineGroup(name, nextGroup)) {
-			return this.sendReply("/promote - WARNING: This user is offline and could be unregistered. Use /forcepromote if you're sure you want to risk it.");
+			return this.sendReply("/promote - ADVERTENCIA: Este usuario no esta conectado y puede que no este registrado. Si lo quiere subir de rango utilice /forcepromote.");
 		}
 		if (Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
-			this.privateModCommand("(" + name + " was demoted to " + groupName + " by " + user.name + ".)");
-			if (targetUser) targetUser.popup("You were demoted to " + groupName + " by " + user.name + ".");
+			this.privateModCommand("(" + name + " ha sido degradado a  " + groupName + " por " + user.name + ".)");
+			if (targetUser) targetUser.popup("Has sido degradado a  " + groupName + " por " + user.name + ".");
 		} else {
-			this.addModCommand("" + name + " was promoted to " + groupName + " by " + user.name + ".");
+			this.addModCommand("" + name + " ha sido promovido a " + groupName + " por " + user.name + ".");
 		}
 
 		if (targetUser) targetUser.updateIdentity();
 	},
-	promotehelp: ["/promote [username], [group] - Promotes the user to the specified group. Requires: & ~"],
+	promotehelp: ["/promote [username], [group] - Promueve a un usuario al grupo especificado Requiere: & ~"],
 
 	globaldemote: 'demote',
 	demote: function (target) {
 		if (!target) return this.parse('/help demote');
 		this.run('promote');
 	},
-	demotehelp: ["/demote [username], [group] - Demotes the user to the specified group. Requires: & ~"],
+	demotehelp: ["/demote [username], [group] - Degrada a un usuario al grupo especificado Requiere: & ~"],
 
 	forcepromote: function (target, room, user) {
 		// warning: never document this command in /help
@@ -1185,10 +1192,10 @@ var commands = exports.commands = {
 		if (!Config.groups[nextGroup]) return this.sendReply("Group '" + nextGroup + "' does not exist.");
 
 		if (!Users.setOfflineGroup(name, nextGroup, true)) {
-			return this.sendReply("/forcepromote - Don't forcepromote unless you have to.");
+			return this.sendReply("/forcepromote - Fuerza a promover a un usuario.");
 		}
 
-		this.addModCommand("" + name + " was promoted to " + (Config.groups[nextGroup].name || "regular user") + " by " + user.name + ".");
+		this.addModCommand("" + name + " ha sido promovido a  " + (Config.groups[nextGroup].name || "regular user") + " por " + user.name + ".");
 	},
 
 	devoice: 'deauth',
@@ -1204,12 +1211,12 @@ var commands = exports.commands = {
 	},
 
 	modchat: function (target, room, user) {
-		if (!target) return this.sendReply("Moderated chat is currently set to: " + room.modchat);
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("You cannot do this while unable to talk.");
+		if (!target) return this.sendReply("La charla moderada está configurado actualmente para: " + room.modchat);
+		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.sendReply("No se puede hacer esto mientras que no puede hablar.");
 		if (!this.can('modchat', null, room)) return false;
 
 		if (room.modchat && room.modchat.length <= 1 && Config.groupsranking.indexOf(room.modchat) > 1 && !user.can('modchatall', null, room)) {
-			return this.sendReply("/modchat - Access denied for removing a setting higher than " + Config.groupsranking[1] + ".");
+			return this.sendReply("/modchat - Acceso denegado para eliminar un ajuste mayor que " + Config.groupsranking[1] + ".");
 		}
 
 		target = target.toLowerCase();
@@ -1234,28 +1241,28 @@ var commands = exports.commands = {
 				return this.parse('/help modchat');
 			}
 			if (Config.groupsranking.indexOf(target) > 1 && !user.can('modchatall', null, room)) {
-				return this.sendReply("/modchat - Access denied for setting higher than " + Config.groupsranking[1] + ".");
+				return this.sendReply("/modchat - Acceso denegado para eliminar un ajuste mayor que " + Config.groupsranking[1] + ".");
 			}
 			room.modchat = target;
 			break;
 		}
 		if (currentModchat === room.modchat) {
-			return this.sendReply("Modchat is already set to " + currentModchat + ".");
+			return this.sendReply("La charla moderadaya esta establecida en " + currentModchat + ".");
 		}
 		if (!room.modchat) {
-			this.add("|raw|<div class=\"broadcast-blue\"><b>Moderated chat was disabled!</b><br />Anyone may talk now.</div>");
+			this.add("|raw|<div class=\"broadcast-green\"><b>Charla moderada desactivada!</b><br />Todos pueden hablar</div>");
 		} else {
 			var modchat = Tools.escapeHTML(room.modchat);
-			this.add("|raw|<div class=\"broadcast-red\"><b>Moderated chat was set to " + modchat + "!</b><br />Only users of rank " + modchat + " and higher can talk.</div>");
+			this.add("|raw|<div class=\"broadcast-red\"><b>La charla moderada esta configurada a " + modchat + "!</b><br />Solo los usuarios con el rango " + modchat + " o mayor, pueden hablark.</div>");
 		}
-		this.logModCommand(user.name + " set modchat to " + room.modchat);
+		this.logModCommand(user.name + " ha configurado la charla moderada a " + room.modchat);
 
 		if (room.chatRoomData) {
 			room.chatRoomData.modchat = room.modchat;
 			Rooms.global.writeChatRoomData();
 		}
 	},
-	modchathelp: ["/modchat [off/autoconfirmed/+/%/@/#/&/~] - Set the level of moderated chat. Requires: @ for off/autoconfirmed/+ options, # & ~ for all the options"],
+	modchathelp: ["/modchat [off/autoconfirmed/+/%/@/#/&/~] - Ajuste el nivel de charla moderada. Requiere: @ para / autoconfirmed / + opciones fuera, # y ~ para todas las opciones"],
 
 	declare: function (target, room, user) {
 		if (!target) return this.parse('/help declare');
@@ -1264,10 +1271,11 @@ var commands = exports.commands = {
 		if (!this.canTalk()) return;
 
 		this.add('|raw|<div class="broadcast-blue"><b>' + Tools.escapeHTML(target) + '</b></div>');
-		this.logModCommand(user.name + " declared " + target);
+		this.logModCommand(user.name + " declaro " + target);
 	},
-	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
+	declarehelp: ["/declare [message] - Declara un mensaje. Requiere: # & ~"],
 
+	declare:'htmldeclare',
 	htmldeclare: function (target, room, user) {
 		if (!target) return this.parse('/help htmldeclare');
 		if (!this.can('gdeclare', null, room)) return false;
@@ -1275,10 +1283,11 @@ var commands = exports.commands = {
 		if (!this.canTalk()) return;
 
 		this.add('|raw|<div class="broadcast-blue"><b>' + target + '</b></div>');
-		this.logModCommand(user.name + " declared " + target);
+		this.logModCommand(user.name + " ha declarado " + target);
 	},
 	htmldeclarehelp: ["/htmldeclare [message] - Anonymously announces a message using safe HTML. Requires: ~"],
 
+	
 	gdeclare: 'globaldeclare',
 	globaldeclare: function (target, room, user) {
 		if (!target) return this.parse('/help globaldeclare');
@@ -1287,7 +1296,7 @@ var commands = exports.commands = {
 		for (var id in Rooms.rooms) {
 			if (id !== 'global') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>');
 		}
-		this.logModCommand(user.name + " globally declared " + target);
+		this.logModCommand(user.name + " ha declarado globalmente " + target);
 	},
 	globaldeclarehelp: ["/globaldeclare [message] - Anonymously announces a message to every room on the server. Requires: ~"],
 
@@ -1299,10 +1308,11 @@ var commands = exports.commands = {
 		for (var id in Rooms.rooms) {
 			if (id !== 'global') if (Rooms.rooms[id].type !== 'battle') Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>');
 		}
-		this.logModCommand(user.name + " globally declared (chat level) " + target);
+		this.logModCommand(user.name + "ha declarado globalmente " + target);
 	},
 	chatdeclarehelp: ["/cdeclare [message] - Anonymously announces a message to all chatrooms on the server. Requires: ~"],
 
+	anuncio: 'announce',
 	wall: 'announce',
 	announce: function (target, room, user) {
 		if (!target) return this.parse('/help announce');
@@ -1314,8 +1324,9 @@ var commands = exports.commands = {
 
 		return '/announce ' + target;
 	},
-	announcehelp: ["/announce OR /wall [message] - Makes an announcement. Requires: % @ # & ~"],
+	announcehelp: ["/announce OR /wall [message] - has un anuncio. Requires: % @ # & ~"],
 
+	cambiatunombre: 'forcerename'
 	fr: 'forcerename',
 	forcerename: function (target, room, user) {
 		if (!target) return this.parse('/help forcerename');
@@ -1325,17 +1336,17 @@ var commands = exports.commands = {
 		if (!targetUser) {
 			this.splitTarget(target);
 			if (this.targetUser) {
-				return this.sendReply("User has already changed their name to '" + this.targetUser.name + "'.");
+				return this.sendReply("Usuario ya ha cambiado su nombre por el de '" + this.targetUser.name + "'.");
 			}
-			return this.sendReply("User '" + target + "' not found.");
+			return this.sendReply("El usuario '" + target + "'no esta conectado.");
 		}
 		if (!this.can('forcerename', targetUser)) return false;
 
-		var entry = targetUser.name + " was forced to choose a new name by " + user.name + (reason ? ": " + reason : "");
+		var entry = targetUser.name + " ha sido forzado a cambiar su nombre por " + user.name + (reason ? ": " + reason : "");
 		this.privateModCommand("(" + entry + ")");
 		Rooms.global.cancelSearch(targetUser);
 		targetUser.resetName();
-		targetUser.send("|nametaken||" + user.name + " considers your name inappropriate" + (reason ? ": " + reason : "."));
+		targetUser.send("|nametaken||" + user.name + " ha considerado que tu nombre es inapropiado por:" + (reason ? ": " + reason : "."));
 		return true;
 	},
 	forcerenamehelp: ["/forcerename OR /fr [username], [reason] - Forcibly change a user's name and shows them the [reason]. Requires: % @ & ~"],
@@ -1546,6 +1557,7 @@ var commands = exports.commands = {
 		this.add("|raw|<div class=\"broadcast-green\"><b>The ladder is now back.</b><br />Rated games will update the ladder now.</div>");
 	},
 
+	reiniciar:'lockdown'
 	lockdown: function (target, room, user) {
 		if (!this.can('lockdown')) return false;
 
@@ -1553,12 +1565,12 @@ var commands = exports.commands = {
 		for (var id in Rooms.rooms) {
 			if (id === 'global') continue;
 			var curRoom = Rooms.rooms[id];
-			curRoom.addRaw("<div class=\"broadcast-red\"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>");
+			curRoom.addRaw("<div class=\"broadcast-red\"><b>El Servidor Dropp se reiniciara pronto.</b><br />Por favor terminen sus batallas lo mas pronto posible... Y no inicien mas batallas hasta que el Servidor se reestablezca</div>");
 			if (curRoom.requestKickInactive && !curRoom.battle.ended) {
 				curRoom.requestKickInactive(user, true);
 				if (curRoom.modchat !== '+') {
 					curRoom.modchat = '+';
-					curRoom.addRaw("<div class=\"broadcast-red\"><b>Moderated chat was set to +!</b><br />Only users of rank + and higher can talk.</div>");
+					curRoom.addRaw("<div class=\"broadcast-red\"><b>La Charla moderada se establece en +!</b><br />Sólo los usuarios con rango + o superior pueden hablar.</div>");
 				}
 			}
 		}
@@ -1570,7 +1582,7 @@ var commands = exports.commands = {
 	prelockdown: function (target, room, user) {
 		if (!this.can('lockdown')) return false;
 		Rooms.global.lockdown = 'pre';
-		this.sendReply("Tournaments have been disabled in preparation for the server restart.");
+		this.sendReply("Los Torneos se han deshabilitado en la preparación para el reinicio del servidor Dropp.");
 		this.logEntry(user.name + " used /prelockdown");
 	},
 
@@ -1582,7 +1594,7 @@ var commands = exports.commands = {
 			if (id === 'global') continue;
 			var curRoom = Rooms.rooms[id];
 			if (curRoom.battle) continue;
-			curRoom.addRaw("<div class=\"broadcast-red\"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>");
+			curRoom.addRaw("<div class=\"broadcast-red\"><b>El Servidor Dropp se reiniciara pronto.</b><br />Por favor terminen sus batallas lo mas pronto posible... Y no inicien mas batallas hasta que el Servidor se reestablezca</div>");
 		}
 
 		this.logEntry(user.name + " used /slowlockdown");
@@ -1592,48 +1604,51 @@ var commands = exports.commands = {
 		if (!this.can('lockdown')) return false;
 
 		if (!Rooms.global.lockdown) {
-			return this.sendReply("We're not under lockdown right now.");
+			return this.sendReply("No se estaba pensando hacer un reinicio");
 		}
 		if (Rooms.global.lockdown === true) {
 			for (var id in Rooms.rooms) {
-				if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>The server shutdown was canceled.</b></div>");
+				if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>El Reinicio del Servidor Dropp ha sido cancelado</b></div>");
 			}
 		} else {
-			this.sendReply("Preparation for the server shutdown was canceled.");
+			this.sendReply("El reinicio del Servidor ha sido cancelado");
 		}
 		Rooms.global.lockdown = false;
 
 		this.logEntry(user.name + " used /endlockdown");
 	},
 
+	emergencia:'emergency',
 	emergency: function (target, room, user) {
 		if (!this.can('lockdown')) return false;
 
 		if (Config.emergency) {
-			return this.sendReply("We're already in emergency mode.");
+			return this.sendReply("Ya estamos en modo de emergencia... almate y no te alteres");
 		}
 		Config.emergency = true;
 		for (var id in Rooms.rooms) {
-			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-red\">The server has entered emergency mode. Some features might be disabled or limited.</div>");
+			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-red\">¡ALERTA¡Hemos entrado en modo de Emergencia, se recomienda mantener la calma... Tambien cabe avisar que Algunas caracteristicas y funciones se desabilitaran¡ALERTA¡</div>");
 		}
 
 		this.logEntry(user.name + " used /emergency");
 	},
 
+	calmarusuarios: 'endemergency',
 	endemergency: function (target, room, user) {
 		if (!this.can('lockdown')) return false;
 
 		if (!Config.emergency) {
-			return this.sendReply("We're not in emergency mode.");
+			return this.sendReply("No estamos en modo de Emegencia");
 		}
 		Config.emergency = false;
 		for (var id in Rooms.rooms) {
-			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>The server is no longer in emergency mode.</b></div>");
+			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>Modo de emergencia desactivado.... Gracias por mantener la calma</b></div>");
 		}
 
 		this.logEntry(user.name + " used /endemergency");
 	},
 
+	iniciarreinicio: 'kill',
 	kill: function (target, room, user, connection) {
 		//if (!user.hasConsoleAccess(connection)) {return this.sendReply("/kill - Access denied.");}
 
