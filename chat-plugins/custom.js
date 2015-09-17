@@ -70,20 +70,38 @@ exports.commands = {
 			t = 'ⒶⓊⓈⒺⓃⓉⒺ'
 			s = 'Ausente'
 			break;
-		},
-	
-	ayudaestado: 'afkhelp,	
+		}
+
+		if (!user.isAway) {
+			user.originalName = user.name;
+			var awayName = user.name + ' - '+t;
+			//delete the user object with the new name in case it exists - if it does it can cause issues with forceRename
+			delete Users.get(awayName);
+			user.forceRename(awayName, undefined, true);
+
+			if (user.isStaff) this.add('|raw|<b> <font color="#2EFEF7">' + Tools.escapeHTML(user.originalName) +'</font color></b> esta '+s.toLowerCase()+'. '+ (target ? " (" + escapeHTML(target) + ")" : ""));
+
+			user.isAway = true;
+			user.blockChallenges = true;
+		}
+		else {
+			return this.sendReply('Tu estas como ausente, digita /back.');
+		}
+
+		user.updateIdentity();
+	},
+
+	ayudaestado: 'afkhelp',	
 	afkhelp: function () {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox("<strong> Comandos de Afk : </strong><br />" +
-			  "/ausente <br />" +
+		this.sendReplyBox("<center><strong> Comandos de Afk :</strong> Son estados de ausencia prederterminados que con el /away no se pueden hacer <br />" +
+			              "<br />/ausente <br />" +
                           "/ocupado <br />" +
-			  "/comiendo <br />" +
-			  "/aburrido <br />" +
-                          "/durmiendo <br />" +
+			  			  "/comiendo <br />" +
+			              "/durmiendo <br />" +
                           "/grabando (Especialmente para los youtubers)<br />" +
                           "/programando (Especialmente para los programadores del servidor).<br />" +
-                          "<br />" );
+                          "<br /><b><i>--The WleDey--</i></b></center>");
 	},
 	
 	postimage: 'image',
