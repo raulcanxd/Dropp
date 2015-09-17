@@ -26,7 +26,7 @@ exports.commands = {
 	
 	plugdj: function () {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<div class="infobox"><center><a href="https://plug.dj/dropp-showdown"><img src="http://i.imgur.com/2olrf6c.gif" height="100" width="100"></a><br><font size=3><b><font color="blue">Plug-DJ del Servidor Dropp');
+		this.sendReplyBox('<div class="infobox"><center><a href="https://plug.dj/dropp-showdown"><img src="http://i.imgur.com/2olrf6c.gif" height="100" width="100"></a><br><font size=3><b><font color="blue">Plug-DJ del Servidor Dropp</font></font><p><font color="blue">Donde podras difrutar de la mejor musica... Si quieres colaborar siendo <i>Manager</i> u otro rango habla con un Administrador.');
 	
 	},
 	
