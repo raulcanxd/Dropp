@@ -26,82 +26,8 @@ exports.commands = {
 	
 	plugdj: function () {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<div class="infobox"><center><a href="https://plug.dj/dropp-showdown"><img src="http://i.imgur.com/2olrf6c.gif" height="100" width="100"></a><br><font size=3><b><font color="blue">Plug-DJ del Servidor Dropp</font></font><p><font color="blue">Donde podras difrutar de la mejor musica... Si quieres colaborar siendo <i>Manager</i> u otro rango habla con un Administrador.');
+		this.sendReplyBox('<div class="infobox"><center><a href="https://plug.dj/dropp-showdown"><img src="http://i.imgur.com/2olrf6c.gif" height="100" width="100"><img src="http://images.cooltext.com/4413830.png" height="60" width="500"></a><br><p><font color="blue">Donde podras difrutar de la mejor musica... Si quieres colaborar siendo <i>Manager</i> u otro rango habla con un Administrador.');
 	
-	},
-	
-	jugando: 'afk',
-	ocupado: 'afk',  
-	comiendo: 'afk', 
-	durmiendo: 'afk', 
-	grabando: 'afk',	
-	programando: 'afk',
-	ausente: 'afk',
-	away: 'afk',
-	afk: function(target, room, user, connection, cmd) {
-		if (!this.canTalk) return false;
-		var t = 'Away';
-		switch (cmd) {
-			case 'jugando':
-			t = 'ⒿⓊⒼⒶⓃⒹⓄ';  
-			s = 'Jugando'
-			break;  
-                        case 'comiendo':
-			t = 'ⒸⓄⓂⒾⒺⓃⒹⓄ';
-			s = 'Comiendo'
-			break;  
-                        case 'grabando':
-			t = 'ⒼⓇⒶⒷⒶⓃⒹⓄ';
-			s = 'Grabando'
-			break;			
-			case 'durmiendo':
-			t = 'ⒹⓊⓇⓂⒾⒺⓃⒹⓄ';
-			s = 'Durmiendo'
-			break; 
-			case 'programando':
-			t = 'ⓅⓇⓄⒼⓇⒶⓂⒶⓃⒹⓄ';
-			s = 'Programando'
-			break;
-			case 'ocupado':
-			t = 'ⓄⒸⓊⓅⒶⒹⓄ';
-			s = 'Ocupado'
-			break;
-			default:
-			t = 'ⒶⓊⓈⒺⓃⓉⒺ'
-			s = 'Ausente'
-			break;
-		}
-
-		if (!user.isAway) {
-			user.originalName = user.name;
-			var awayName = user.name + ' - '+t;
-			//delete the user object with the new name in case it exists - if it does it can cause issues with forceRename
-			delete Users.get(awayName);
-			user.forceRename(awayName, undefined, true);
-
-			if (user.isStaff) this.add('|raw|<b> <font color="#2EFEF7">' + Tools.escapeHTML(user.originalName) +'</font color></b> esta '+s.toLowerCase()+'. '+ (target ? " (" + escapeHTML(target) + ")" : ""));
-
-			user.isAway = true;
-			user.blockChallenges = true;
-		}
-		else {
-			return this.sendReply('Tu estas como ausente, digita /back.');
-		}
-
-		user.updateIdentity();
-	},
-
-	ayudaestado: 'afkhelp',	
-	afkhelp: function () {
-		if (!this.canBroadcast()) return;
-		this.sendReplyBox("<center><strong> Comandos de Afk :</strong> Son estados de ausencia prederterminados que con el /away no se pueden hacer <br />" +
-			              "<br />/ausente <br />" +
-                          "/ocupado <br />" +
-			  			  "/comiendo <br />" +
-			              "/durmiendo <br />" +
-                          "/grabando (Especialmente para los youtubers)<br />" +
-                          "/programando (Especialmente para los programadores del servidor).<br />" +
-                          "<br /><b><i>--The WleDey--</i></b></center>");
 	},
 	
 	postimage: 'image',

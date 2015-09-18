@@ -1779,7 +1779,7 @@ var commands = exports.commands = {
 	forums: 'foro',
 	foro: function (target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://dropp.boards.net/\">Foro del Servidor Dropp</a>");
+		this.sendReplyBox("<center><a href=\"http://dropp.boards.net/\"><h1>Foro del Servidor Dropp</a></h1><p>Donde podras encontrar toda la Informacion acerca del Servidor, noticias,eventos y muchos mas.</p>");
 	},
 
 	suggestions: function (target, room, user) {
