@@ -139,7 +139,7 @@ exports.commands = {
 		}
 		tables[user.userid] = cells;
 		bingoPrize += 15;
-		this.sendReply("Has Comprado una tablilla. Para ver su estado usa <b>/bingo</b>");
+		this.sendReply("Has Comprado una tablilla. Para ver su estado usa /bingo");
 		this.parse('/bingo');
 		checkBingo(room);
 	},
@@ -511,7 +511,7 @@ exports.commands = {
 			user.joinRoom('casino');
 			return;
 		}
-		var casinoInfo = 'Bienvenido al casino: En esta sala puedes apostar tus PokeDolares en diversos juegos de azar y ganar dinero fácil si tienes suerte. Los actuales juegos de azar son los siguientes:\n -Tragaperras: Usa /slot [1-50] | Puedes perder los Pd o que tu apuesta de multiplique hasta x5. \n -Ruleta: El staff del casino debe iniciarla con /nuevaruleta y hacerla girar con /finruleta. Nota: el premio inicial viene de los fondos del casino alimentados de las tragaperras y de las ruletas sin ganador. Para los usuarios se apuesta por un Pokemon con /apostar [pokemon] y para ver las opciones /ruleta \n -Bingo: Se inicia con /nuevobingo y se participa con /buytable. Se van diciendo números aleatorios y quien antes tenga una tablilla con todos sus números dichos gana. \n -Apuestas: Se inicia con /abrirapuestas y /cerrarapuestas pudiendo apostar por un jugador como posible ganador del torneo mediante el comando /tourbet. \n \n';
+		var casinoInfo = 'Bienvenido al casino del servidor Dropp: En esta sala puedes apostar tus PokeDolares en diversos juegos de azar y ganar dinero fácil si tienes suerte. Los actuales juegos de azar son los siguientes:\n -Tragaperras: Usa /slot [1-50] | Puedes perder los Pd o que tu apuesta de multiplique hasta x5. \n -Ruleta: El staff del casino debe iniciarla con /nuevaruleta y hacerla girar con /finruleta. Nota: el premio inicial viene de los fondos del casino alimentados de las tragaperras y de las ruletas sin ganador. Para los usuarios se apuesta por un Pokemon con /apostar [pokemon] y para ver las opciones /ruleta \n -Bingo: Se inicia con /nuevobingo y se participa con /buytable. Se van diciendo números aleatorios y quien antes tenga una tablilla con todos sus números dichos gana. \n -Apuestas: Se inicia con /abrirapuestas y /cerrarapuestas pudiendo apostar por un jugador como posible ganador del torneo mediante el comando /tourbet. \n \n';
 		var owners = Object.keys(casinoOwners);
 		if (!owners || owners.length < 1) {
 			casinoInfo += 'No hay dueños del casino aún.';
