@@ -56,19 +56,17 @@ function createTournament(room, format, generator, playerCap, isRated, args, out
 	}
 	return (exports.tournaments[room.id] = new Tournament(room, format, createTournamentGenerator(generator, args, output), playerCap, isRated));
 }
-function deleteTournament(name, output) {
-	var id = toId(name);
+function deleteTournament(id, output) {
 	var tournament = exports.tournaments[id];
 	if (!tournament) {
-		output.sendReply(name + " doesn't exist.");
+		output.sendReply(id + " doesn't exist.");
 		return false;
 	}
 	tournament.forceEnd(output);
 	delete exports.tournaments[id];
 	return true;
 }
-function getTournament(name, output) {
-	var id = toId(name);
+function getTournament(id, output) {
 	if (exports.tournaments[id]) {
 		return exports.tournaments[id];
 	}
@@ -81,6 +79,7 @@ Tournament = (function () {
 		this.generator = generator;
 		this.isRated = isRated;
 		this.playerCap = parseInt(playerCap) || Config.tournamentDefaultPlayerCap || 0;
+		this.scouting = true;
 		if (Config.tournamentDefaultPlayerCap && this.playerCap > Config.tournamentDefaultPlayerCap) {
 			ResourceMonitor.log('[ResourceMonitor] Room ' + room.id + ' starting a tour over default cap (' + this.playerCap + ')');
 		}
@@ -673,6 +672,16 @@ Tournament = (function () {
 		this.runAutoDisqualify();
 		this.update();
 	};
+	Tournament.prototype.onBattleJoin = function (room, user) {
+		if (this.scouting || this.isEnded || user.latestIp === room.p1.latestIp || user.latestIp === room.p2.latestIp) return;
+		var roomid = (room && room.id ? room.id : room);
+		var users = this.generator.getUsers(true);
+		for (var i = 0; i < users.length; i++) {
+			if (users[i].latestIp === user.latestIp) {
+				return "Scouting is banned: tournament players can't watch other tournament battles.";
+			}
+		}
+	};
 	Tournament.prototype.onBattleWin = function (room, winner) {
 		var from = Users.get(room.p1);
 		var to = Users.get(room.p2);
@@ -728,9 +737,15 @@ Tournament = (function () {
 			format: this.format,
 			generator: this.generator.name,
 			bracketData: this.getBracketData()
+<<<<<<< HEAD
 		}));  if (global.Shop) {var data = {results: this.generator.getResults().map(usersToNames), bracketData: this.getBracketData()};data = data['results'].toString();var runnerUp = false;var winner = false; if (data.indexOf(',') >= 0) {data = data.split(','); winner = data[0]; if (this.room.id === 'casino' && Users.get(Bot.config.name)) CommandParser.parse('/endtourbets ' + winner, this.room, Users.get(Bot.config.name), Users.get(Bot.config.name).connections[0]); if (data[1]) runnerUp = data[1];} else {winner = data;} var tourSize = this.generator.users.size;if (this.room.isOfficial && tourSize >= 3) {firstMoney = tourSize * 20;secondMoney = Math.floor((tourSize * 20) / 2); firstBuck = 'PokeDolar';secondBuck = 'PokeDolar'; if (firstMoney > 1) firstBuck = 'PokeDolares'; if (secondMoney > 1) secondBuck = 'PokeDolares'; Shop.giveMoney(winner, firstMoney); this.room.add('|raw|<strong>' + Tools.escapeHTML(winner) + '</strong> ha ganado ' + firstMoney + ' ' + firstBuck + ' por ganar el torneo!'); if (runnerUp) { Shop.giveMoney(runnerUp, secondMoney); this.room.add('|raw|<strong>' + Tools.escapeHTML(runnerUp) + '</strong> también ha ganado ' + secondMoney + ' ' + secondBuck + ' por quedar en segundo lugar!');}}}
 		this.isEnded = true; 
 		delete exports.tournaments[toId(this.room.id)];
+=======
+		}));
+		this.isEnded = true;
+		delete exports.tournaments[this.room.id];
+>>>>>>> remotes/upstream/master
 	};
 
 	return Tournament;
@@ -846,11 +861,41 @@ var commands = {
 		runautodq: function (tournament) {
 			tournament.runAutoDisqualify(this);
 		},
+		scout: 'setscouting',
+		scouting: 'setscouting',
+		setscout: 'setscouting',
+		setscouting: function (tournament, user, params, cmd) {
+			if (params.length < 1) {
+				if (tournament.scouting) {
+					return this.sendReply("This tournament allows spectating other battles while in a tournament.");
+				} else {
+					return this.sendReply("This tournament disallows spectating other battles while in a tournament.");
+				}
+			}
+
+			var option = params[0].toLowerCase();
+			if (option === 'on' || option === 'true' || option === 'allow' || option === 'allowed')  {
+				tournament.scouting = true;
+				this.room.add('|tournament|scouting|allow');
+				this.privateModCommand("(The tournament was set to allow scouting by " + user.name + ")");
+			} else if (option === 'off' || option === 'false' || option === 'disallow' || option === 'disallowed') {
+				tournament.scouting = false;
+				this.room.add('|tournament|scouting|disallow');
+				this.privateModCommand("(The tournament was set to disallow scouting by " + user.name + ")");
+			} else {
+				return this.sendReply("Usage: " + cmd + " <allow|disallow>");
+			}
+		},
 		end: 'delete',
 		stop: 'delete',
 		delete: function (tournament, user) {
+<<<<<<< HEAD
 			if (deleteTournament(tournament.room.title, this)) {
 				this.privateModCommand("(" + user.name + " El Torneo a sido cancelado.)");
+=======
+			if (deleteTournament(tournament.room.id, this)) {
+				this.privateModCommand("(" + user.name + " forcibly ended a tournament.)");
+>>>>>>> remotes/upstream/master
 			}
 		}
 	}
@@ -869,7 +914,7 @@ CommandParser.commands.tournament = function (paramString, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReply('|tournaments|info|' + JSON.stringify(Object.keys(exports.tournaments).filter(function (tournament) {
 			tournament = exports.tournaments[tournament];
-			return !tournament.room.isPrivate && !tournament.room.staffRoom;
+			return !tournament.room.isPrivate && !tournament.room.isPersonal && !tournament.room.staffRoom;
 		}).map(function (tournament) {
 			tournament = exports.tournaments[tournament];
 			return {room: tournament.room.title, format: tournament.format, generator: tournament.generator.name, isStarted: tournament.isTournamentStarted};
@@ -919,7 +964,7 @@ CommandParser.commands.tournament = function (paramString, room, user) {
 			}
 		}
 	} else {
-		var tournament = getTournament(room.title);
+		var tournament = getTournament(room.id);
 		if (!tournament) {
 			return this.sendReply("There is currently no tournament running in this room.");
 		}
@@ -964,6 +1009,7 @@ CommandParser.commands.tournamenthelp = function (target, room, user) {
 		"- dq/disqualify &lt;user>: Disqualifies a user.<br />" +
 		"- autodq/setautodq &lt;minutes|off>: Sets the automatic disqualification timeout.<br />" +
 		"- runautodq: Manually run the automatic disqualifier.<br />" +
+		"- scouting: Specifies whether joining tournament matches while in a tournament is allowed.<br />" +
 		"- getusers: Lists the users in the current tournament.<br />" +
 		"- on/off: Enables/disables allowing mods to start tournaments.<br />" +
 		"More detailed help can be found <a href=\"https://gist.github.com/verbiage/0846a552595349032fbe\">here</a>"
