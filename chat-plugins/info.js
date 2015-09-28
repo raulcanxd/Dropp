@@ -2431,8 +2431,6 @@ var commands = exports.commands = {
 	smogdexhelp: ["/analysis [pokemon], [generation] - Links to the Smogon University analysis for this Pok\u00e9mon in the given generation.",
 		"!analysis [pokemon], [generation] - Shows everyone this link. Requires: + % @ # & ~"],
 
-<<<<<<< HEAD
-=======
 	veekun: function (target, broadcast, user) {
 		if (!this.canBroadcast()) return;
 
@@ -2503,7 +2501,6 @@ var commands = exports.commands = {
 	veekunhelp: ["/veekun [pokemon] - Links to Veekun website for this pokemon/item/move/ability/nature.",
 		"!veekun [pokemon] - Shows everyone this link. Requires: + % @ # & ~"],
 
->>>>>>> remotes/upstream/master
 	register: function () {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('You will be prompted to register upon winning a rated battle. Alternatively, there is a register button in the <button name="openOptions"><i class="fa fa-cog"></i> Options</button> menu in the upper right.');
