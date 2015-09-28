@@ -226,13 +226,8 @@ var commands = exports.commands = {
 	blockpms: 'ignorepms',
 	ignorepm: 'ignorepms',
 	ignorepms: function (target, room, user) {
-<<<<<<< HEAD
 		if (user.ignorePMs === (target || true)) return this.sendReply("You are already blocking private messages!");
 		if (user.locked && !user.can('bypassall')) return this.sendReply("You are not allowed to block private messages.");
-=======
-		if (user.ignorePMs === (target || true)) return this.sendReply("You are already blocking private messages! To unblock, use /unblockpms");
-		if (user.can('lock') && !user.can('bypassall')) return this.errorReply("You are not allowed to block private messages.");
->>>>>>> remotes/upstream/master
 		user.ignorePMs = true;
 		if (target in Config.groups) {
 			user.ignorePMs = target;
