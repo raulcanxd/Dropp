@@ -889,13 +889,9 @@ var commands = {
 		end: 'delete',
 		stop: 'delete',
 		delete: function (tournament, user) {
-<<<<<<< HEAD
-			if (deleteTournament(tournament.room.title, this)) {
-				this.privateModCommand("(" + user.name + " El Torneo a sido cancelado.)");
-=======
 			if (deleteTournament(tournament.room.id, this)) {
 				this.privateModCommand("(" + user.name + " forcibly ended a tournament.)");
->>>>>>> remotes/upstream/master
+
 			}
 		}
 	}
