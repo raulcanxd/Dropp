@@ -296,11 +296,7 @@ var GlobalRoom = (function () {
 
 		this.chatRoomData = [];
 		try {
-<<<<<<< HEAD
-			this.chatRoomData = JSON.parse(fs.readFileSync(DATA_DIR + 'chatrooms.json'));
-=======
 			this.chatRoomData = require('./config/chatrooms.json');
->>>>>>> remotes/upstream/master
 			if (!Array.isArray(this.chatRoomData)) this.chatRoomData = [];
 		} catch (e) {} // file doesn't exist [yet]
 
