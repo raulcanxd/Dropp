@@ -374,8 +374,8 @@ var cmds = {
 		this.sendReplyBox('<center><font size = 2><h3>Sistema de torneos</h3></font><br />' +
 						' Disponible para las salas, permitiendo a los usuarios con auth (+ % @ # & ~) crearlos y moderarlos.<br />' +
 						'Los comandos son:<br />' +
-						'<ul><li>/newtour [Formato], [Tiempo] minutes - Inicia un torneo. Requiere: + % @ & ~</li>' +
-						'<li>/j - Comando para unirse a los tourneos.</li>' +
+						'<ul><li>/newtour [Formato], [Tiempo] minutos - Inicia un torneo. Requiere: + % @ & ~</li>' +
+						'<li>/j - Comando para unirse a los torneos.</li>' +
 						'<li>/l - comando para abandonar un torneo.</li>' +
 						'<li>/remind - recuerda a los usuarios inactivos que tienen batallas pendientes.</li>' +
 						'<li>/vr - muestra el estado del torneo.</li>' +
@@ -930,6 +930,7 @@ var cmds = {
 		this.parse('/poll Formato para el siguiente Torneo, ' + Object.keys(Tools.data.Formats).filter(function (f) {return Tools.data.Formats[f].effectType === 'Format'; }).join(", "));
 	},
 
+	votar: 'vote',
 	vote: function(target, room, user) {
 		var ips = JSON.stringify(user.ips);
 		if (!tour[room.id].question) return this.sendReply('No hay encuestas en curso.');
@@ -938,6 +939,7 @@ var cmds = {
 		return this.sendReply('Tu unico voto ahora es por ' + target + '.');
 	},
 
+	votos: 'votes',
 	votes: function(target, room, user) {
 		if (!this.canBroadcast()) return;
 		this.sendReply('Votos registrados: ' + Object.keys(tour[room.id].answers).length);
