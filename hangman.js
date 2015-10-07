@@ -35,11 +35,11 @@ exports.hangman = function(h) {
 var cmds = {
 	hangmanhelp: function(target, room, user) {
 		if (!this.canBroadcast()) return;
-		this.sendReplyBox('<font size = 2>Una pequeña introducción al </font><font size = 3>Hangman:</font><br />' +
+		this.sendReplyBox('<center><font size = 2>Una pequeña introducción al </font><font size = 3>Hangman:</font><br />' +
 						'El clásico juego, la idea básica del hangman es adivinar la palabra en la que alguien esta pensando antes de que el hombre sea "ahorcado". Los jugadores tienen 8 oportunidades antes de que esto pase<br />' +
 						'Los juegos pueden ser iniciados por Voice o rangos superiores incluyendo Room Voice, Room Mod, y Room Owner.<br />' +
 						'Los comandos son:<br />' +
-						'<ul><li>/hangman [palabra], [descripción] - Inicia el juego de hangman con la palabra especificada sobre un tema en específico Requiere: + % @ & ~</li>' +
+						'<font align="left"><ul><li>/hangman [palabra], [descripción] - Inicia el juego de hangman con la palabra especificada sobre un tema en específico Requiere: + % @ & ~</li>' +
 						'<li>/guess [letter] - Adivina una letra.</li>' +
 						'<li>/guessword [word] - Adivina una palabra.</li>' +
 						'<li>/viewhangman - Muestra el estado actual del juego. Puede ser voceado.</li>' +
@@ -91,7 +91,7 @@ var cmds = {
 				hangman[room.id].spaces.push('_');
 				hangman[room.id].hangmantopic[0] = targets[1];
 			}
-			return this.add('|html|<div class = "infobox"><div class = "broadcast-green"><center><font size = 2><b>' + user.name + '</b> ha iniciado un juego de ahorcado. La palabra tiene ' + targets[0].length + ' letras.<br>' + hangman[room.id].spaces.join(" ") + '<br>La categoría: ' + hangman[room.id].hangmantopic[0] + '</font></center></div></div>');
+			return this.add('|html|<div class = "infobox"><div class = "broadcast-blue"><center><font size = 2><b>' + user.name + '</b> ha iniciado un juego de ahorcado. La palabra tiene ' + targets[0].length + ' letras.<br>' + hangman[room.id].spaces.join(" ") + '<br>La categoría: ' + hangman[room.id].hangmantopic[0] + '</font></center></div></div>');
 		}
 	},
 
@@ -100,7 +100,7 @@ var cmds = {
 		if(hangman[room.id].hangman === false) {
 			return this.sendReply('No hay juego de hangman en curso.');
 		}
-		this.sendReplyBox('|html|<div class = "broadcast-green"><center><font size = 2>' + hangman[room.id].spaces.join(" ") + '<br>Intentos restantes: ' + hangman[room.id].givenguesses + '<br>Categoría: ' + hangman[room.id].hangmantopic[0] + '</font>');
+		this.sendReplyBox('<div class = "broadcast-blue"><center><font size = 2>' + hangman[room.id].spaces.join(" ") + '<br>Intentos restantes: ' + hangman[room.id].givenguesses + '<br>Categoría: ' + hangman[room.id].hangmantopic[0] + '</font>');
 	},
 
 	 topic: 'category',

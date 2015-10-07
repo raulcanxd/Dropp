@@ -177,7 +177,7 @@ var Context = exports.Context = (function () {
 		if (this.pmTarget) {
 			this.connection.send('|pm|' + this.user.getIdentity() + '|' + (this.pmTarget.getIdentity ? this.pmTarget.getIdentity() : ' ' + this.pmTarget) + '|/error ' + message);
 		} else {
-			this.connection.sendTo(this.room, '|html|<div class="message-error">' + Tools.escapeHTML(message) + '</div>');
+			this.sendReply('|html|<div class="message-error">' + Tools.escapeHTML(message) + '</div>');
 		}
 	};
 	Context.prototype.sendReplyBox = function (html) {
@@ -321,6 +321,10 @@ var Context = exports.Context = (function () {
 			}
 			for (var i = 0; i < images.length; i++) {
 				if (!/width=([0-9]+|"[0-9]+")/i.test(images[i]) || !/height=([0-9]+|"[0-9]+")/i.test(images[i])) {
+					// Width and height are required because most browsers insert the
+					// <img> element before width and height are known, and when the
+					// image is loaded, this changes the height of the chat area, which
+					// messes up autoscrolling.
 					this.errorReply('All images must have a width and height attribute');
 					return false;
 				}
