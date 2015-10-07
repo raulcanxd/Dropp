@@ -8,14 +8,33 @@ var emotes = {
 	';(': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0106-crying.gif',
 	';)': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0105-wink.gif',
 	':$': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0111-blush.gif',
+	':h': 'http://r32.imgfast.net/users/3215/11/58/02/smiles/4268145079.gif',
 	':D': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0102-bigsmile.gif',
+	':xD:': 'http://www.animaatjes.nl/smileys/smileys-en-emoticons/xd/animaatjes-xd-09561.gif',
 	':h:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0152-heart.gif',
+	'(-.-)': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-005.gif?1302022356',
+	'm(-.-)m':'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-002.gif?1302022356',
+	':eee:':'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-027.gif?1302022361',
+	':hju:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-025.gif?1302022361',
+	':aaa:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-032.gif?1302022361',
+	':si:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-031.gif?1302022361',
+	':no:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-030.gif?1302022361',
+	';3;': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-049.gif?1302022363',
+	':121:':'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-121.gif?1302022372',
+	':yoyo:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-132.gif?1302022374',
+	':bum:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-141.gif?1302022375',
+	':zZZ:':'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-143.gif?1302022375',
+	'O:)': 'http://emoticoner.com/files/emoticons/smiley_faces/afro2-smiley-face.gif?1302011301',
 	':punch:': 'http://emoticoner.com/files/emoticons/smileys/boxing-smiley.gif?1292867560',
 	':gulp:': 'http://emoticoner.com/files/emoticons/smileys/brod-kavelarg-smiley.gif?1292867561',
 	':bye:': 'http://emoticoner.com/files/emoticons/smileys/bye-smiley.gif?1292867562',
+	':rrr:': 'http://emoticoner.com/files/emoticons/smiley_faces/ablow-smiley-face.gif?1302011300',
+	':8ball:': 'http://emoticoner.com/files/emoticons/smiley_faces/8ball-smiley-face.gif?1302011297',
+	':asched:': 'http://emoticoner.com/files/emoticons/smiley_faces/bash-smiley-face.gif?1302011310',
 	':shut:': 'http://emoticoner.com/files/emoticons/smileys/cheerleader1-smiley.gif?1292867567',
 	':pchut:':'http://emoticoner.com/files/emoticons/smileys/check-email-smiley.gif?1292867567',
 	':chat:': 'http://emoticoner.com/files/emoticons/smileys/chat-smiley.gif?1292867567',
+	':powera:': 'http://emoticoner.com/files/emoticons/smiley_faces/admin-power-smiley-face.gif?1302011301', 
 	':felicidades:': 'http://emoticoner.com/files/emoticons/smileys/congratualtions-smiley.gif?1292867575',
 	':um:': 'http://emoticoner.com/files/emoticons/smileys/dont-no-smiley.gif?1292867584',
 	':cumple:' :'http://emoticoner.com/files/emoticons/smileys/earth-day-smiley.gif?1292867587',
@@ -182,7 +201,7 @@ function create_table() {
 		}
 	}
 
-	return "<div class='infobox'><center><b><u>Lista de Emoticones</u></b></center>" + "<div class='infobox-limited'><table border='1' cellspacing='0' cellpadding='5' width='100%'>" + "<tbody>" + emotes_group_list.join("") + "</tbody>" + "</table></div></div>";
+	return "<div class='infobox'><div class = 'broadcast-blue'><center><b><u>Lista de Emoticones de Dropp</u></b></center>" + "<div class='infobox-limited'><table cellspacing='0' cellpadding='5' width='100%'>" + "<tbody>" + emotes_group_list.join("") + "</tbody>" + "</table></div></div>";
 }
 
 var emotes_table = create_table();

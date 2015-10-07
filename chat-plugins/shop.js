@@ -5,23 +5,24 @@ exports.commands = {
 	 * Shop commands
 	 *********************************************************/
 
-	tienda: 'shop',
-	shop: function (target, room, user) {
-		if (!this.canBroadcast()) return false;
-		this.sendReplyBox(
-			'<center><h3><b><u><font color="#0174DF">Bienvenido a la Tienda del <i>Servidor Dropp</i></font></u></b></h3><table border="1" cellspacing="0" cellpadding="3" target="_blank"><tbody>' +
-			'<tr><th>Art&iacute;culo</th><th>Descripci&oacute;n</th><th>Coste</th></tr>' +
-			'<tr><td>Chatroom</td><td>Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam u Otros contenidos inapropiados a ella , sera Borrada.</td><td>10000</td></tr>' +
-            '<tr><td>Avatar</td><td>Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Contactar con un Admin para obtener este art&iacute;culo.</td><td>6000</td></tr>' +
-			'<tr><td>Trainer Card</td><td>Compra una Tarjeta de Entrenador personalizada (a partir de código html). Contactar con un administrador si el código es muy largo para un solo mensaje. Si no sabes de Html Contacta a un Administrador</td><td>5000</td></tr>' +
-			'<tr><td>Symbol</td><td>Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.</td><td>1500</td></tr>' +
-			'<tr><td>Cambio de Avatar</td><td>Si ya tienes un avatar personalizado. Puedes cambiarlo por otro diferente.</td><td>2500</td></tr>' +
-	
-			'</tbody></table><br /> Para comprar un artículo usa el comando <font color="#0174DF"><b>/buy (artículo)</b></font>' +
-			'<br /> Algunos artículos solo se pueden comprar contactando con un Administrador. Para más información usa /shophelp' +
-			'</center>'
-		);
-	},
+tienda: 'shop',
+    shop: function (target, room, user) {
+        if (!this.canBroadcast()) return false;
+        this.sendReplyBox(
+            '<table width="100%" bgcolor="#0080FF" style="border-radius:15px 0px;border-style:solid 2px;border-color:#0B3861;"><tr><td><center><marquee bgcolor="White" style="border-radius:0px 15px;border-style:solid 2px #0B3861;"><font color="#0B3861"><b><p> Bienvenido a la Tienda del Servidor Dropp</b></p></font></marquee><table cellspacing="1" cellpadding="3" target="_blank"><tbody>' +
+            '<hr style="border-style:dashed 2px;">'+
+            '<tr><th><font color="#FFFFFF">Art&iacute;culo</th><th><font color="#FFFFFF">Descripci&oacute;n</th><th><font color="#FFFFFF">Coste</th></tr>' +
+            '<tr><td><font color="#FFFFFF"><b>Chatroom</b></td><td><font color="#FFFFFF">Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam u Otros contenidos inapropiados a ella , sera Borrada.</td><td><font color="#FFFFFF">10000</td></tr>' +
+            '<tr><td><font color="#FFFFFF"><b>Avatar</b></td><td><font color="#FFFFFF">Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Contactar con un Admin para obtener este art&iacute;culo.</td><td><font color="#FFFFFF">8000</td></tr>' +
+            '<tr><td><font color="#FFFFFF"><b>Trainer Card</b></td><td><font color="#FFFFFF">Compra una Tarjeta de Entrenador personalizada (a partir de código html). Contactar con un administrador si el código es muy largo para un solo mensaje. Si no sabes de Html Contacta a un Administrador</td><td><font color="#FFFFFF">5000</td></tr>' +
+            '<tr><td><font color="#FFFFFF"><b>Symbol</b></td><td><font color="#FFFFFF">Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.</td><td><font color="#FFFFFF">1500</td></tr>' +
+            '<tr><td><font color="#FFFFFF"><b>Cambio de Avatar</b></td><td><font color="#FFFFFF">Si ya tienes un avatar personalizado. Puedes cambiarlo por otro diferente.</td><td><font color="#FFFFFF">2500</td></tr>' +
+   
+            '</tbody></table><br /><font color="#FFFFFF"> Para comprar un artículo usa el comando <b>/buy (artículo)</b>' +
+            '<br /> Algunos artículos solo se pueden comprar contactando con un Administrador. Para más información usa /shophelp' +
+            '</font></center>'
+        );
+    },
 
 	ayudatienda: 'shophelp',
 	shophelp: function () {
