@@ -8,7 +8,7 @@ var emotes = {
 	';(': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0106-crying.gif',
 	';)': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0105-wink.gif',
 	':$': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0111-blush.gif',
-	':h': 'http://r32.imgfast.net/users/3215/11/58/02/smiles/4268145079.gif',
+	':prr:': 'http://r32.imgfast.net/users/3215/11/58/02/smiles/4268145079.gif',
 	':D': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0102-bigsmile.gif',
 	':xD:': 'http://www.animaatjes.nl/smileys/smileys-en-emoticons/xd/animaatjes-xd-09561.gif',
 	':h:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0152-heart.gif',
