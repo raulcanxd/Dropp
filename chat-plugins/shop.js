@@ -1,4 +1,4 @@
-﻿
+
 
 exports.commands = {
 	/*********************************************************
@@ -17,6 +17,7 @@ tienda: 'shop',
             '<tr><td><font color="#FFFFFF"><b>Trainer Card</b></td><td><font color="#FFFFFF">Compra una Tarjeta de Entrenador personalizada (a partir de código html). Contactar con un administrador si el código es muy largo para un solo mensaje. Si no sabes de Html Contacta a un Administrador</td><td><font color="#FFFFFF">5000</td></tr>' +
             '<tr><td><font color="#FFFFFF"><b>Symbol</b></td><td><font color="#FFFFFF">Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.</td><td><font color="#FFFFFF">1500</td></tr>' +
             '<tr><td><font color="#FFFFFF"><b>Cambio de Avatar</b></td><td><font color="#FFFFFF">Si ya tienes un avatar personalizado. Puedes cambiarlo por otro diferente.</td><td><font color="#FFFFFF">2500</td></tr>' +
+   			'<tr><td><font color="#FFFFFF"><b>Icono</b></td><td><font color="#FFFFFF">Para conseguir este Articulo, habla con nuestro Administrador The WleDey. <b>NO LO COMPRES</b>. Busca una Imagen de 32x32 y Dasela a The WleDey...Tambien puedes adjuntar el nombre de las salas del Servidor donde quieres que se vea tu Icono (maximo 5)<br><b>OJO:Tu icono puede durar hasta 32 Horas en aparecer</b></td><td><font color="#FFFFFF">2000</td></tr>' +
    
             '</tbody></table><br /><font color="#FFFFFF"> Para comprar un artículo usa el comando <b>/buy (artículo)</b>' +
             '<br /> Algunos artículos solo se pueden comprar contactando con un Administrador. Para más información usa /shophelp' +
