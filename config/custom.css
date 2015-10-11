@@ -1,9 +1,11 @@
-**
- * Custom CSS declarations
- *
- * If your server is registered, you can create a file named `custom.css`
- * in the `config` directory and populate it with CSS rules to override the
- * normal client styles, when the client is connected to your server. In
- * other words, you can use this facility to introduce a custom theme for
- * your server.
- */
+/*Iconos de los Usuarios en el Servidor*/
+
+/*Dropp Bot*/#lobby-userlist-user-droppbot, #staff-userlist-user-droppbot{background: #EBEBEB url("http://www.serebii.net/red_green/sprites/382.gif") right no-repeat;}
+
+/*The WleDey*/#lobby-userlist-user-thewledey, #staff-userlist-user-thewledey{background: #EBEBEB url("http://orig02.deviantart.net/c262/f/2011/087/d/f/magikarp_sprite_by_meleemovies-d3cph78.png") right no-repeat;}
+
+/*XChumitoX*/#lobby-userlist-user-xchumitox, #staff-userlist-user-xchumitox,#casino-userlist-user-xchumitox,#eventos-userlist-user-xchumitox,#loszumitos-userlist-user-xchumitox,#warroom1-userlist-user-xchumitox,#wifi-userlist-user-xchumitox{background: #EBEBEB url("http://orig04.deviantart.net/71c5/f/2011/362/4/1/dialga_overworld_sprite_by_tuibiel-d4kioa0.gif") right no-repeat;}
+
+/*Jeidel*/#lobby-userlist-user-jeidel, #staff-userlist-user-jeidel{background: #EBEBEB url("http://www.serebii.net/pokedex-xy/icon/384.png") right no-repeat;}
+
+/*KingSwordYT*/#lobby-userlist-user-kingswordyt,#staff-userlist-user-kingswordyt,#uzumaki-userlist-user-kingswordyt,#warroom1-userlist-user-kingswordyt,#ligadropp-userlist-user-kingswordyt{background: #EBEBEB url("http://www.pkparaiso.com/imagenes/pokedex/xy-icons/675.png") right no-repeat;}
