@@ -511,10 +511,10 @@ var parse = exports.parse = function (message, room, user, connection, levelsDee
 			// To guard against command typos, we now emit an error message
 			if (cmdToken === BROADCAST_TOKEN) {
 				if (/[a-z0-9]/.test(cmd.charAt(0))) {
-					return context.errorReply("The command '" + cmdToken + fullCmd + "' was unrecognized.");
+					return context.errorReply("El comando '" + cmdToken + fullCmd + "' no fue reonocido.");
 				}
 			} else {
-				return context.errorReply("The command '" + cmdToken + fullCmd + "' was unrecognized. To send a message starting with '" + cmdToken + fullCmd + "', type '" + cmdToken.repeat(2) + fullCmd + "'.");
+				return context.errorReply("El Comando '" + cmdToken + fullCmd + "'  no fue reconocido o no existe. Para enviar un mensaje que empiece por  '" + cmdToken + fullCmd + "',escriba '" + cmdToken.repeat(2) + fullCmd + "'.");
 			}
 		} else if (!VALID_COMMAND_TOKENS.includes(message.charAt(0)) && VALID_COMMAND_TOKENS.includes(message.trim().charAt(0))) {
 			message = message.trim();

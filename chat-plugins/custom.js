@@ -24,6 +24,8 @@ exports.commands = {
 		connection.popup(buffer.join("\n\n"));
 	},*/
 	
+	
+	
 	plugdj: function () {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('<div class="infobox"><center><a href="https://plug.dj/dropp-showdown"><img src="http://i.imgur.com/2olrf6c.gif" height="100" width="100"><img src="http://images.cooltext.com/4413830.png" height="60" width="500"></a><br><p><font color="blue">Donde podras difrutar de la mejor musica... Si quieres colaborar siendo <i>Manager</i> u otro rango habla con un Administrador.');

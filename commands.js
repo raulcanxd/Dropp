@@ -213,7 +213,7 @@ var commands = exports.commands = {
 				target = '/invite ' + targetRoom.id;
 				break;
 			default:
-				return this.errorReply("The command '/" + innerCmd + "' was unrecognized or unavailable in private messages. To send a message starting with '/" + innerCmd + "', type '//" + innerCmd + "'.");
+				return this.errorReply("El comando '/" + innerCmd + "' no fue reconocido o no está disponible en mensajes privados del servidor dropp. Para enviar un mensaje que empiece por '/" + innerCmd + "', escriba '//" + innerCmd + "'.");
 			}
 		}
 
@@ -1844,12 +1844,12 @@ var commands = exports.commands = {
 		for (var id in Rooms.rooms) {
 			if (id === 'global') continue;
 			var curRoom = Rooms.rooms[id];
-			curRoom.addRaw("<div class=\"broadcast-red\"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>");
+			curRoom.addRaw("<div class=\"broadcast-red\"><b>El Servidor se Reiniciara pronto</b><br />Se les recomienda terminar sus batallas lo mas pronto posible. No inicien mas batallas hasta que El Reinicio haya sido efectuado</div>");
 			if (curRoom.requestKickInactive && !curRoom.battle.ended) {
 				curRoom.requestKickInactive(user, true);
 				if (curRoom.modchat !== '+') {
 					curRoom.modchat = '+';
-					curRoom.addRaw("<div class=\"broadcast-red\"><b>Moderated chat was set to +!</b><br />Only users of rank + and higher can talk.</div>");
+					curRoom.addRaw("<div class=\"broadcast-red\"><b>El Chat moderado a sido activado a nivel de  +!</b><br />Solo usuario con el rango + o superio pueden hablar.</div>");
 				}
 			}
 		}
@@ -1873,7 +1873,7 @@ var commands = exports.commands = {
 			if (id === 'global') continue;
 			var curRoom = Rooms.rooms[id];
 			if (curRoom.battle) continue;
-			curRoom.addRaw("<div class=\"broadcast-red\"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>");
+			curRoom.addRaw("<div class=\"broadcast-red\"><b>El Servidor se Reiniciara pronto</b><br />Se les recomienda terminar sus batallas lo mas pronto posible. No inicien mas batallas hasta que El Reinicio halla sido efectuado</div>");
 		}
 
 		this.logEntry(user.name + " used /slowlockdown");
@@ -1883,14 +1883,14 @@ var commands = exports.commands = {
 		if (!this.can('lockdown')) return false;
 
 		if (!Rooms.global.lockdown) {
-			return this.errorReply("We're not under lockdown right now.");
+			return this.errorReply("No habias preparado el /lockdown.");
 		}
 		if (Rooms.global.lockdown === true) {
 			for (var id in Rooms.rooms) {
-				if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>The server shutdown was canceled.</b></div>");
+				if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>El Reinicio del server ha sido cancelado.</b></div>");
 			}
 		} else {
-			this.sendReply("Preparation for the server shutdown was canceled.");
+			this.sendReply("El server ya no se reiniciara");
 		}
 		Rooms.global.lockdown = false;
 
@@ -1901,11 +1901,11 @@ var commands = exports.commands = {
 		if (!this.can('lockdown')) return false;
 
 		if (Config.emergency) {
-			return this.errorReply("We're already in emergency mode.");
+			return this.errorReply("Ya estamos en modo emergencia.");
 		}
 		Config.emergency = true;
 		for (var id in Rooms.rooms) {
-			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-red\">The server has entered emergency mode. Some features might be disabled or limited.</div>");
+			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-red\"><b>El Servidor Dropp ha entrado en modo de emergencia</b><br>Esto podria ser por un fallo o error en el mismo. Mientras tanto algunas funciones podrian estar desabilitadas, Para mas informacion contacta a un <i>Administrador (~)</i></div>");
 		}
 
 		this.logEntry(user.name + " used /emergency");
@@ -1915,11 +1915,11 @@ var commands = exports.commands = {
 		if (!this.can('lockdown')) return false;
 
 		if (!Config.emergency) {
-			return this.errorReply("We're not in emergency mode.");
+			return this.errorReply("No estabamos en modo emergencia.");
 		}
 		Config.emergency = false;
 		for (var id in Rooms.rooms) {
-			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>The server is no longer in emergency mode.</b></div>");
+			if (id !== 'global') Rooms.rooms[id].addRaw("<div class=\"broadcast-green\"><b>El Servidor ya no esta en Modo de Emergencia, gracias por esperar</b></div>");
 		}
 
 		this.logEntry(user.name + " used /endemergency");
