@@ -1407,6 +1407,11 @@ var BattleRoom = (function () {
 		}
 		this.expireTimer = null;
 
+		if (this.muteTimer) {
+			clearTimeout(this.muteTimer);
+		}
+		this.muteTimer = null;
+
 		// get rid of some possibly-circular references
 		delete rooms[this.id];
 	};
@@ -1435,7 +1440,7 @@ var ChatRoom = (function () {
 			};
 			this.logEntry('NEW CHATROOM: ' + this.id);
 			if (Config.loguserstats) {
-				setInterval(this.logUserStats.bind(this), Config.loguserstats);
+				this.logUserStatsInterval = setInterval(this.logUserStats.bind(this), Config.loguserstats);
 			}
 		}
 
@@ -1643,6 +1648,7 @@ var ChatRoom = (function () {
 			} else {
 				entry = '|J|' + user.getIdentity(this.id);
 			}
+			if (this.staffMessage && user.can('mute', null, this)) this.sendUser(user, '|raw|<div class="infobox">(Staff intro:)<br /><div>' + this.staffMessage + '</div></div>');
 		} else if (!user.named) {
 			entry = '|L| ' + oldid;
 		} else {
@@ -1703,8 +1709,19 @@ var ChatRoom = (function () {
 			}
 		}
 
-		// remove active mute timer if any
-		if (this.muteTimer) clearTimeout(this.muteTimer);
+		// Clear any active timers for the room
+		if (this.muteTimer) {
+			clearTimeout(this.muteTimer);
+		}
+		this.muteTimer = null;
+		if (this.reportJoinsInterval) {
+			clearTimeout(this.reportJoinsInterval);
+		}
+		this.reportJoinsInterval = null;
+		if (this.logUserStatsInterval) {
+			clearTimeout(this.logUserStatsInterval);
+		}
+		this.logUserStatsInterval = null;
 
 		// get rid of some possibly-circular references
 		delete rooms[this.id];
