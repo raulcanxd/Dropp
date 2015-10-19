@@ -26,7 +26,7 @@ var Poll = (function () {
 
 	Poll.prototype.vote = function (user, option) {
 		if (this.voters.has(user.latestIp)) {
-			return user.sendTo(this.room, "You have already voted for this poll.");
+			return user.sendTo(this.room, "Ya has votado en esta encuesta.");
 		} else {
 			this.voters.add(user.latestIp);
 		}
@@ -38,7 +38,7 @@ var Poll = (function () {
 	};
 
 	Poll.prototype.generateVotes = function () {
-		var output = '<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> Poll</span> <strong style="font-size:11pt">' + Tools.escapeHTML(this.question) + '</strong></p>';
+		var output = '<div class="infobox"><p style="margin: 2px 0 5px 0"><span style="border:1px solid #6A6;color:#484;border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i>Encuesta</span> <strong style="font-size:11pt">' + Tools.escapeHTML(this.question) + '</strong></p>';
 		this.options.forEach(function (option, number) {
 			output += '<div style="margin-top: 3px"><button value="/poll vote ' + number + '" name="send" title="Vote for ' + number + '. ' + Tools.escapeHTML(option.name) + '">' + number + '. <strong>' + Tools.escapeHTML(option.name) + '</strong></button></div>';
 		});
@@ -48,7 +48,7 @@ var Poll = (function () {
 	};
 
 	Poll.prototype.generateResults = function (ended) {
-		var icon = '<span style="border:1px solid #' + (ended ? '777;color:#555' : '6A6;color:#484') + ';border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> ' + (ended ? "Poll ended" : "Poll") + '</span>';
+		var icon = '<span style="border:1px solid #' + (ended ? '777;color:#555' : '6A6;color:#484') + ';border-radius:4px;padding:0 3px"><i class="fa fa-bar-chart"></i> ' + (ended ? "Encuesta Terminada" : "Encuesta") + '</span>';
 		var output = '<div class="infobox"><p style="margin: 2px 0 5px 0">' + icon + ' <strong style="font-size:11pt">' + Tools.escapeHTML(this.question) + '</strong></p>';
 		var iter = this.options.entries();
 
@@ -133,7 +133,7 @@ exports.commands = {
 
 			room.poll = new Poll(room, params[0], options);
 			room.poll.display(user, true);
-			return this.privateModCommand("(A poll was started by " + user.name + ".)");
+			return this.privateModCommand("(La encuesta ha sido iniciada por " + user.name + ".)");
 		},
 		newhelp: ["/poll create [question], [option1], [option2], [...] - Creates a poll. Requires: % @ # & ~"],
 
@@ -152,7 +152,7 @@ exports.commands = {
 
 		timer: function (target, room, user) {
 			if (!this.can(permission, null, room)) return false;
-			if (!room.poll) return this.errorReply("There is no poll running in this room.");
+			if (!room.poll) return this.errorReply("No hay encuestas en curso.");
 
 			var timeout = parseFloat(target);
 			if (isNaN(timeout)) return this.errorReply("No time given.");
@@ -161,7 +161,7 @@ exports.commands = {
 				room.poll.end();
 				delete room.poll;
 			}), (timeout * 60000));
-			return this.privateModCommand("(The poll timeout was set to " + timeout + " minutes by " + user.name + ".)");
+			return this.privateModCommand("(El tiempo limite de la encuesta a sido establecido a  " + timeout + " minutos por " + user.name + ".)");
 		},
 		timerhelp: ["/poll timer [minutes] - Sets the poll to automatically end after [minutes] minutes. Requires: % @ # & ~"],
 
@@ -169,12 +169,12 @@ exports.commands = {
 		stop: 'end',
 		end: function (target, room, user) {
 			if (!this.can(permission, null, room)) return false;
-			if (!room.poll) return this.errorReply("There is no poll running in this room.");
+			if (!room.poll) return this.errorReply("No hay encuestas en curso.");
 			if (room.poll.timeout) clearTimeout(room.poll.timeout);
 
 			room.poll.end();
 			delete room.poll;
-			return this.privateModCommand("(The poll was ended by " + user.name + ".)");
+			return this.privateModCommand("(La encuesta ha sido terminada por " + user.name + ".)");
 		},
 		endhelp: ["/poll end - Ends a poll and displays the results. Requires: % @ # & ~"],
 

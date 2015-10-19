@@ -3,15 +3,17 @@ var color = require('../config/color');
 exports.parseEmoticons = parseEmoticons;
 
 var emotes = {
-	':(': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0101-sadsmile.gif',
-	':)': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0100-smile.gif',
-	';(': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0106-crying.gif',
-	';)': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0105-wink.gif',
-	':$': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0111-blush.gif',
+	'::(:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0101-sadsmile.gif',
+	'::):': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0100-smile.gif',
+	':;(:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0106-crying.gif',
+	':;):': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0105-wink.gif',
+	'::$:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0111-blush.gif',
 	':prr:': 'http://r32.imgfast.net/users/3215/11/58/02/smiles/4268145079.gif',
-	':D': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0102-bigsmile.gif',
+	'::D:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0102-bigsmile.gif',
 	':xD:': 'http://www.animaatjes.nl/smileys/smileys-en-emoticons/xd/animaatjes-xd-09561.gif',
-	':h:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0152-heart.gif',
+	':hola:': 'http://k40.kn3.net/9788B4B8D.gif',
+	':dance:': 'http://www.gifde.com/gif/otros/musica/bailes-platano-bailando/platano-bailando-dancing-banana-020.gif',
+	':h:':'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0152-heart.gif',
 	'(-.-)': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-005.gif?1302022356',
 	'm(-.-)m':'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-002.gif?1302022356',
 	':eee:':'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-027.gif?1302022361',
@@ -104,7 +106,8 @@ var emotes = {
 	':wobbuffet:': 'http://cbc.pokecommunity.com/config/emoticons/wobbuffet.png',
 	':wooper:': 'http://cbc.pokecommunity.com/config/emoticons/wooper.png',
 	':wynaut:': 'http://cbc.pokecommunity.com/config/emoticons/wynaut.png',
-	':y:': 'http://cbc.pokecommunity.com/config/emoticons/y.png',		
+	':p:':'http://www.emoticonesfacebookchat.com/images/emoticones/no-me-gusta.gif',
+	':b:': 'http://cbc.pokecommunity.com/config/emoticons/y.png',		
 	':yoshi:': 'http://cbc.pokecommunity.com/config/emoticons/yoshi.png'
 };
 
