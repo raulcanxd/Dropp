@@ -192,12 +192,12 @@ exports.commands = {
 			this.parse('/help poll');
 		}
 	},
-	pollhelp: ["/poll allows rooms to run their own polls. These polls are limited to one poll at a time per room.",
-				"Accepts the following commands:",
-				"/poll create [question], [option1], [option2], [...] - Creates a poll. Requires: % @ # & ~",
-				"/poll vote [number] - Votes for option [number].",
-				"/poll timer [minutes] - Sets the poll to automatically end after [minutes]. Requires: % @ # & ~",
-				"/poll display - Displays the poll",
-				"/poll end - Ends a poll and displays the results. Requires: % @ # & ~"]
+	pollhelp: ["/poll Has una poll de cualqueir tema en el Servidor.",
+				"Puedes utilizar los siguientes comandos:",
+				"/poll create [pregunta], [opcion1], [opcion2], [...] - Crea una encuesta. Require: % @ # & ~",
+				"/poll vote [numero] - Vota por la opcion [numero].",
+				"/poll timer [minutos] -  Establece la encuesta para terminar automáticamente después de [minutos]. Require: % @ # & ~",
+				"/poll display - Muestra la encuesta",
+				"/poll end - Termina la encuesta. Require: % @ # & ~"]
 
 };

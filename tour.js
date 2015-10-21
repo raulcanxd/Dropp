@@ -558,6 +558,32 @@ var cmds = {
 		}
 	},
 
+	push: 'fj',
+	forcejoin: 'fj',
+	fj: function(target, room, user, connection) {
+		if (!tour.lowauth(user,room)) return this.sendReply('No tienes suficiente poder para utilizar este comando.');
+		if (room.decision) return this.sendReply('Prof. Oak: No es un buen momento para usar este comando. No puedes utilizarlo en salas de batalla.');
+		if (tour[room.id] == undefined || tour[room.id].status == 0 || tour[room.id].status == 2) return this.sendReply('No hay un torneo en su fase de inscripcion.');
+		if (!target) return this.sendReply('Especifica el usuario cuya participacion deseas.');
+		var targetUser = Users.get(target);
+		if (targetUser) {
+			target = targetUser.userid;
+		} else {
+			return this.sendReply('El usuario \'' + target + '\' no existe.');
+		}
+		if (tour.joinable(target, room.id)) {
+			tour.reportdue(room);
+			tour[room.id].players.push(target);
+			tour[room.id].playerslogged.push(target);
+			var remslots = tour[room.id].size - tour[room.id].players.length;
+			room.addRaw(user.name + ' ha forzado a <b>' + tour.username(target) + '</b> a unirse al torneo.' + tour.remsg(remslots));
+			if (tour[room.id].size == tour[room.id].players.length) tour.start(room.id);
+		} else {
+			return this.sendReply('El usuario especificado ya estaba en el torneo.');
+		}
+	},
+
+
 	forceleave: 'fl',
 	fl: function(target, room, user, connection) {
 		if (!tour.lowauth(user,room)) return this.sendReply('No tienes suficiente poder para utilizar este comando.');
