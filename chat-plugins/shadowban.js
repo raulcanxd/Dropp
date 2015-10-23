@@ -20,7 +20,7 @@ if (!room) {
 }
 if (Object.size(room.addedUsers) > 0) {
 	setImmediate(function () {
-		room.add("||Loaded user list: " + Object.keys(room.addedUsers).sort().join(", "));
+		room.add("||Añadiendo usuarios al S-B: " + Object.keys(room.addedUsers).sort().join(", "));
 		room.update();
 	});
 }
@@ -110,7 +110,7 @@ var addUser = exports.addUser = function (user) {
 
 	if (targets.length > 0) {
 		Rooms.global.writeChatRoomData();
-		room.add("||Added users: " + targets.join(", "));
+		room.add("||Añadiendo usuario: " + targets.join(", "));
 		room.update();
 	}
 
@@ -130,7 +130,7 @@ var removeUser = exports.removeUser = function (user) {
 
 	if (targets.length > 0) {
 		Rooms.global.writeChatRoomData();
-		room.add("||Removed users: " + targets.join(", "));
+		room.add("||Eliminando usuario: " + targets.join(", "));
 		room.update();
 	}
 

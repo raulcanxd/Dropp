@@ -4,12 +4,12 @@ exports.parseEmoticons = parseEmoticons;
 
 var emotes = {
 	':(': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0101-sadsmile.gif',
+	':D': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0102-bigsmile.gif',
 	':)': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0100-smile.gif',
 	';(': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0106-crying.gif',
 	';)': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0105-wink.gif',
 	':$': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0111-blush.gif',
 	':prr:': 'http://r32.imgfast.net/users/3215/11/58/02/smiles/4268145079.gif',
-	':D:': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0102-bigsmile.gif',
 	'xd': 'http://www.animaatjes.nl/smileys/smileys-en-emoticons/xd/animaatjes-xd-09561.gif',
 	':hola:': 'http://k40.kn3.net/9788B4B8D.gif',
 	':dance:': 'http://www.gifde.com/gif/otros/musica/bailes-platano-bailando/platano-bailando-dancing-banana-020.gif',
@@ -237,6 +237,7 @@ exports.commands = {
 	},
 	emoticonshelp: ["/emoticons - Get a list of emoticons."],
 
+	onofcaritas: 'toggleemoticons',
 	toggleemote: 'toggleemoticons',
 	toggleemotes: 'toggleemoticons',
 	toggleemoticons: function (target, room, user) {
@@ -244,9 +245,9 @@ exports.commands = {
 		room.disableEmoticons = !room.disableEmoticons;
 		this.sendReply("Disallowing emoticons is set to " + room.disableEmoticons + " in this room.");
 		if (room.disableEmoticons) {
-			this.add("|raw|<div class=\"broadcast-red\"><b>Emoticons are disabled!</b><br />Emoticons will not work.</div>");
+			this.add("|raw|<div class=\"broadcast-red\"><b>Los Emoticons han sido desactivados!</b><br />No se podran utilizar emoticones hasta nuevo aviso.</div>");
 		} else {
-			this.add("|raw|<div class=\"broadcast-blue\"><b>Emoticons are enabled!</b><br />Emoticons will work now.</div>");
+			this.add("|raw|<div class=\"broadcast-blue\"><b>Los Emoticons han sido activados!</b><br />Ya se pueden usar emoticones.</div>");
 		}
 	},
 	toggleemoticonshelp: ["/toggleemoticons - Toggle emoticons on or off."],
