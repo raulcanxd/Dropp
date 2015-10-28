@@ -17,6 +17,7 @@ var Poll = (function () {
 		this.voters = new Set();
 		this.totalVotes = 0;
 		this.timeout = null;
+		this.timeoutMins = 0;
 
 		this.options = new Map();
 		for (var i = 0; i < options.length; i++) {
@@ -33,6 +34,16 @@ var Poll = (function () {
 
 		this.options.get(option).votes++;
 		this.totalVotes++;
+
+		this.update();
+	};
+
+	Poll.prototype.blankvote = function (user, option) {
+		if (this.voters.has(user.latestIp)) {
+			return user.sendTo(this.room, "You're already looking at the results.");
+		} else {
+			this.voters.add(user.latestIp);
+		}
 
 		this.update();
 	};
@@ -141,6 +152,11 @@ exports.commands = {
 			if (!room.poll) return this.errorReply("There is no poll running in this room.");
 			if (!target) return this.errorReply("Please specify an option.");
 
+			if (target === 'blank') {
+				room.poll.blankvote(user);
+				return;
+			}
+
 			var parsed = parseInt(target);
 			if (isNaN(parsed)) return this.errorReply("To vote, specify the number of the option.");
 
@@ -151,19 +167,47 @@ exports.commands = {
 		votehelp: ["/poll vote [number] - Votes for option [number]."],
 
 		timer: function (target, room, user) {
-			if (!this.can(permission, null, room)) return false;
-			if (!room.poll) return this.errorReply("No hay encuestas en curso.");
+			if (!room.poll) return this.errorReply("No hay encuestas en curso");
 
-			var timeout = parseFloat(target);
-			if (isNaN(timeout)) return this.errorReply("No time given.");
-			if (room.poll.timeout) clearTimeout(room.poll.timeout);
-			room.poll.timeout = setTimeout((function () {
-				room.poll.end();
-				delete room.poll;
-			}), (timeout * 60000));
-			return this.privateModCommand("(El tiempo limite de la encuesta a sido establecido a  " + timeout + " minutos por " + user.name + ".)");
+			if (target) {
+				if (!this.can(permission, null, room)) return false;
+				if (target === 'clear') {
+					if (room.poll.timeout) {
+						clearTimeout(room.poll.timeout);
+						room.poll.timeout = null;
+						room.poll.timeoutMins = 0;
+						return room.add("El tiempo de espera para responder la encuesta se acabo.");
+					} else {
+						return this.errorReply("No timer to clear.");
+					}
+				}
+				var timeout = parseFloat(target);
+				if (isNaN(timeout) || timeout <= 0) return this.errorReply("Tiempo invalido.");
+				if (room.poll.timeout) clearTimeout(room.poll.timeout);
+				room.poll.timeoutMins = timeout;
+				room.poll.timeout = setTimeout((function () {
+					room.poll.end();
+					delete room.poll;
+				}), (timeout * 60000));
+				room.add("El tiempo limite de la encuesta a sido establecido a " + timeout + " minutos.");
+				return this.privateModCommand("(El tiempo limite de la encuesta a sido establecido a " + timeout + " minutos, por: " + user.name + ".)");
+			} else {
+				if (!this.canBroadcast()) return;
+				if (room.poll.timeout) {
+					return this.sendReply("El tiempo limite de la encuesta es " + room.poll.timeoutMins + " minutos.");
+				} else {
+					return this.sendReply("No hay tiempo limite en la encuesta");
+				}
+			}
 		},
-		timerhelp: ["/poll timer [minutes] - Sets the poll to automatically end after [minutes] minutes. Requires: % @ # & ~"],
+		timerhelp: ["/poll timer [minutos] - Establece un tiempo limite para la encuesta. Require: % @ # & ~", "/poll timer clear - Clears the poll's timer. Requires: % @ # & ~"],
+
+		results: function (target, room, user) {
+			if (!room.poll) return this.errorReply("There is no poll running in this room.");
+
+			return room.poll.blankvote(user);
+		},
+		resultshelp: ["/poll results - Shows the results of the poll without voting. NOTE: you can't go back and vote after using this."],
 
 		close: 'end',
 		stop: 'end',
@@ -196,6 +240,7 @@ exports.commands = {
 				"Puedes utilizar los siguientes comandos:",
 				"/poll create [pregunta], [opcion1], [opcion2], [...] - Crea una encuesta. Require: % @ # & ~",
 				"/poll vote [numero] - Vota por la opcion [numero].",
+				"/poll results -  Muestra los resultados de la encuesta sin votar NOTA: no se puede volver atrás y voto después de usar este..",
 				"/poll timer [minutos] -  Establece la encuesta para terminar automáticamente después de [minutos]. Require: % @ # & ~",
 				"/poll display - Muestra la encuesta",
 				"/poll end - Termina la encuesta. Require: % @ # & ~"]

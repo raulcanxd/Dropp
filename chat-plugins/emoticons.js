@@ -247,7 +247,7 @@ exports.commands = {
 		if (room.disableEmoticons) {
 			this.add("|raw|<div class=\"broadcast-red\"><b>Los Emoticons han sido desactivados!</b><br />No se podran utilizar emoticones hasta nuevo aviso.</div>");
 		} else {
-			this.add("|raw|<div class=\"broadcast-blue\"><b>Los Emoticons han sido activados!</b><br />Ya se pueden usar emoticones.</div>");
+			this.add("|raw|<div class=\"broadcast-blue\"><b>Los Emoticons hansido activados!</b><br />Ya se pueden usar emoticones.</div>");
 		}
 	},
 	toggleemoticonshelp: ["/toggleemoticons - Toggle emoticons on or off."],
@@ -257,7 +257,7 @@ exports.commands = {
 		if (!this.canBroadcast()) return;
 		var rng = Math.floor(Math.random() * emotesKeys.length);
 		var randomEmote = emotesKeys[rng];
-		this.sendReplyBox("<img src='" + emotes[randomEmote] + "' title='" + randomEmote + "' height='50' width='50' />");
+		this.sendReplyBox("<img src='" + emotes[randomEmote] + "' title='" + randomEmote + " />");
 	},
 	randemotehelp: ["/randemote - Get a random emote."]
 };

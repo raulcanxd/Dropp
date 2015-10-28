@@ -1344,8 +1344,8 @@ User = (function () {
 				return false;
 			}
 		}
-		var bypassAll = this.can('bypassall');
-		if (room.tour && !bypassAll) {
+		var makeRoom = this.can('makeroom');
+		if (room.tour && !makeRoom) {
 			var tour = room.tour.tour;
 			var errorMessage = tour.onBattleJoin(room, this);
 			if (errorMessage) {
@@ -1353,7 +1353,7 @@ User = (function () {
 				return false;
 			}
 		}
-		if (room.modjoin && !bypassAll) {
+		if (room.modjoin && !makeRoom) {
 			var userGroup = this.group;
 			if (room.auth) {
 				if (room.isPrivate === true) {
