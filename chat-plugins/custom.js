@@ -23,9 +23,38 @@ exports.commands = {
 		}
 		connection.popup(buffer.join("\n\n"));
 	},*/
-	
-	
-	
+
+    masspm: 'pmall',
+	pmall: function (target, room, user) {
+		if (!this.can('pmall')) return false;
+		if (!target) return this.parse('/help pmall');
+
+		var pmName = ' InFo.PM [No Responder]';
+
+		for (var i in Users.users) {
+			var message = '|pm|' + pmName + '|' + Users.users[i].getIdentity() + '|' + target;
+			Users.users[i].send(message);
+		}
+	},
+	pmallhelp: ["/pmall [message] - Envia un MP a todos en el Server"],
+
+	staffpm: 'pmallstaff',
+	pmstaff: 'pmallstaff',
+	pmallstaff: function (target, room, user) {
+		if (!this.can('forcewin')) return false;
+		if (!target) return this.parse('/help pmallstaff');
+
+		var pmName = ' InFo.Staff [No Responder]';
+
+		for (var i in Users.users) {
+			if (Users.users[i].isStaff) {
+				Users.users[i].send('|pm|' + pmName + '|' + Users.users[i].group + Users.users[i].name + '|' + target);
+			}
+		}
+	},
+	pmallstaffhelp: ["/pmallstaff [message] - Envia un mensaje a Todo el miembro del Staff ."],
+
+
 	plugdj: function () {
 		if (!this.canBroadcast()) return;
 		this.sendReplyBox('<div class="infobox"><center><a href="https://plug.dj/dropp-showdown"><img src="http://i.imgur.com/2olrf6c.gif" height="100" width="100"><img src="http://images.cooltext.com/4413830.png" height="60" width="500"></a><br><p><font color="blue">Donde podras difrutar de la mejor musica... Si quieres colaborar siendo <i>Manager</i> u otro rango habla con un Administrador.');

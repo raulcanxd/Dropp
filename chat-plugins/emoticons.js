@@ -29,6 +29,7 @@ var emotes = {
 	'O:)': 'http://emoticoner.com/files/emoticons/smiley_faces/afro2-smiley-face.gif?1302011301',
 	':punch:': 'http://emoticoner.com/files/emoticons/smileys/boxing-smiley.gif?1292867560',
 	':gulp:': 'http://emoticoner.com/files/emoticons/smileys/brod-kavelarg-smiley.gif?1292867561',
+	':naruto:': 'http://lh4.ggpht.com/_QwvI2Zom950/TAdYX8-5gQI/AAAAAAAAAu0/2ng4u2V9-1Y/s128/naruto.gif',
 	':bye:': 'http://emoticoner.com/files/emoticons/smileys/bye-smiley.gif?1292867562',
 	':rrr:': 'http://emoticoner.com/files/emoticons/smiley_faces/ablow-smiley-face.gif?1302011300',
 	':8ball:': 'http://emoticoner.com/files/emoticons/smiley_faces/8ball-smiley-face.gif?1302011297',
@@ -106,8 +107,7 @@ var emotes = {
 	':wobbuffet:': 'http://cbc.pokecommunity.com/config/emoticons/wobbuffet.png',
 	':wooper:': 'http://cbc.pokecommunity.com/config/emoticons/wooper.png',
 	':wynaut:': 'http://cbc.pokecommunity.com/config/emoticons/wynaut.png',
-	':b:': 'http://cbc.pokecommunity.com/config/emoticons/y.png',		
-	':yoshi:': 'http://cbc.pokecommunity.com/config/emoticons/yoshi.png'
+	':b:': 'http://cbc.pokecommunity.com/config/emoticons/y.png'
 };
 
 var emotesKeys = Object.keys(emotes);

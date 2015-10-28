@@ -114,7 +114,7 @@ var Poll = (function () {
 	Poll.prototype.end = function () {
 		var results = this.generateResults(true);
 
-		this.room.send('|uhtmlchange|poll' + this.room.pollNumber +  '|<div class="infobox">(The poll has ended &ndash; scroll down to see the results)</div>');
+		this.room.send('|uhtmlchange|poll' + this.room.pollNumber +  '|<div class="infobox">La encuesta ha sido completada, ve mas abajo para ver los resultados</div>');
 		this.room.send('|html|' + results);
 	};
 
@@ -243,6 +243,7 @@ exports.commands = {
 				"/poll results -  Muestra los resultados de la encuesta sin votar NOTA: no se puede volver atrás y voto después de usar este..",
 				"/poll timer [minutos] -  Establece la encuesta para terminar automáticamente después de [minutos]. Require: % @ # & ~",
 				"/poll display - Muestra la encuesta",
-				"/poll end - Termina la encuesta. Require: % @ # & ~"]
+				"/poll end - Termina la encuesta. Require: % @ # & ~"],
+
 
 };
