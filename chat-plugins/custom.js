@@ -23,6 +23,8 @@ exports.commands = {
 		}
 		connection.popup(buffer.join("\n\n"));
 	},*/
+	
+	
 
     masspm: 'pmall',
 	pmall: function (target, room, user) {
