@@ -35,6 +35,13 @@ exports.Formats = [
 		banlist: ['Uber', 'Soul Dew']
 	},
 	{
+		name: "Fortune Cup",
+		section: "ORAS Singles",
+
+		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Nickname Clause', 'Moody Clause', 'OHKO Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Ban Mod'],
+		banlist: ['Unreleased', 'Illegal']
+	},
+	{
 		name: "OU (no Mega)",
 		section: "ORAS Singles",
 
