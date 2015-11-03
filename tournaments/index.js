@@ -19,8 +19,8 @@ function usersToNames(users) {
 function createTournamentGenerator(generator, args, output) {
 	var Generator = TournamentGenerators[toId(generator)];
 	if (!Generator) {
-		output.errorReply(generator + " is not a valid type.");
-		output.errorReply("Valid types: " + Object.keys(TournamentGenerators).join(", "));
+		output.errorReply(generator + " no es un tipo valido.");
+		output.errorReply("Los tipos validos son: " + Object.keys(TournamentGenerators).join(", "));
 		return;
 	}
 	args.unshift(null);
@@ -41,8 +41,8 @@ function createTournament(room, format, generator, playerCap, isRated, args, out
 	}
 	format = Tools.getFormat(format);
 	if (format.effectType !== 'Format' || !format.tournamentShow) {
-		output.errorReply(format.id + " is not a valid tournament format.");
-		output.errorReply("Valid formats: " + Object.values(Tools.data.Formats).filter(function (f) { return f.effectType === 'Format' && f.tournamentShow; }).map('name').join(", "));
+		output.errorReply(format.id + " no es un formato valido.");
+		output.errorReply("Los formatos validos son: " + Object.values(Tools.data.Formats).filter(function (f) { return f.effectType === 'Format' && f.tournamentShow; }).map('name').join(", "));
 		return;
 	}
 	if (!TournamentGenerators[toId(generator)]) {

@@ -1601,7 +1601,7 @@ var ChatRoom = (function () {
 		if (this.staffMessage && user.can('mute', null, this)) message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '(Staff intro:)<br /><div>' + this.staffMessage + '</div>';
 		if (this.modchat) {
 			message += (message ? '<br />' : '\n|raw|<div class="infobox">') + '<div class="broadcast-red">' +
-				'Must be rank ' + this.modchat + ' or higher to talk right now.' +
+				'Solo los Usuarios con rango ' + this.modchat + ' o mayor, pueden hablar en esta sala.' +
 				'</div>';
 		}return message;
 	};
