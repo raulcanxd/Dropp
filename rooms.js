@@ -316,7 +316,14 @@ var GlobalRoom = (function () {
 				isPrivate: true,
 				staffRoom: true,
 				staffAutojoin: true
-			}];
+			},
+			  {
+			  	tittle: 'Spam',
+			  	isPrivate: true,
+			  	staffRoom: true,
+			  	staffAutojoin: true
+				}
+			];
 		}
 
 		this.chatRooms = [];
