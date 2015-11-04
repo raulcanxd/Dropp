@@ -171,12 +171,12 @@ function canTalk(user, room, connection, message, targetUser) {
 					if (!serverexceptions[serverAd[i]]) {
 						if (!room && targetUser) {
 							connection.send('|pm|' + user.getIdentity() + '|' + targetUser.getIdentity() + '|' + message);
-							Rooms('staff').add('|c|' + user.getIdentity() + '|(__PM a ' + targetUser.getIdentity() + '__) -- ' + message);
-							Rooms('staff').update();
+							Rooms('spam').add('|c|' + user.getIdentity() + '|(__PM a ' + targetUser.getIdentity() + '__) -- ' + message);
+							Rooms('spam').update();
 						} else if (room) {
 							connection.sendTo(room, '|c|' + user.getIdentity(room.id) + '|' + message);
-							Rooms('staff').add('|c|' + user.getIdentity(room.id) + '|(__' + room.id + '__) -- ' + message);
-							Rooms('staff').update();
+							Rooms('spam').add('|c|' + user.getIdentity(room.id) + '|(__' + room.id + '__) -- ' + message);
+							Rooms('spam').update();
 						}
 						return false;
 					}
