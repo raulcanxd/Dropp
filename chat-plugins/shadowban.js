@@ -6,13 +6,13 @@ if (!room) {
 
 	room.isPrivate = true;
 	room.staffRoom = true;
-	room.staffAutojoin = true;
+	room.staffAutojoin = false;
 	room.addedUsers = {};
 
 	if (room.chatRoomData) {
 		room.chatRoomData.isPrivate = true;
 		room.chatRoomData.staffRoom = true;
-		room.chatRoomData.staffAutojoin = true;
+		room.chatRoomData.staffAutojoin = false;
 		room.chatRoomData.addedUsers = room.addedUsers;
 
 		Rooms.global.writeChatRoomData();

@@ -10,7 +10,7 @@ var emotes = {
 	';)': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0105-wink.gif',
 	':$': 'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0111-blush.gif',
 	':prr:': 'http://r32.imgfast.net/users/3215/11/58/02/smiles/4268145079.gif',
-	'xd': 'http://www.animaatjes.nl/smileys/smileys-en-emoticons/xd/animaatjes-xd-09561.gif',
+	'xD': 'http://www.animaatjes.nl/smileys/smileys-en-emoticons/xd/animaatjes-xd-09561.gif',
 	':hola:': 'http://k40.kn3.net/9788B4B8D.gif',
 	':dance:': 'http://www.gifde.com/gif/otros/musica/bailes-platano-bailando/platano-bailando-dancing-banana-020.gif',
 	':h:':'http://factoryjoe.s3.amazonaws.com/emoticons/emoticon-0152-heart.gif',

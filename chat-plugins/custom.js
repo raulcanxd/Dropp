@@ -24,7 +24,31 @@ exports.commands = {
 		connection.popup(buffer.join("\n\n"));
 	},*/
 	
+	autojoinroom: function (target, room, user) {
+		if (!this.can('makeroom')) return;
+		if (target === 'off') {
+			delete room.autojoin;
+			this.addModCommand("" + user.name + " removed this room from the autojoin list.");
+			delete room.chatRoomData.autojoin;
+			Rooms.global.writeChatRoomData();
+		} else {
+			room.autojoin = true;
+			this.addModCommand("" + user.name + " added this room to the autojoin list.");
+			room.chatRoomData.autojoin = true;
+			Rooms.global.writeChatRoomData();
+		}
+	},
 	
+	fancy: 'fancydeclare',
+	fancydeclare: function (target, room, user) {
+		if (!target) return this.parse('/help declare');
+		if (!this.can('declare', null, room)) return false;
+
+		if (!this.canTalk()) return;
+
+		this.add('|raw|<div class="profile-title">' + target + '</div>');
+		this.logModCommand(user.name + " declared " + target);
+	},
 
     masspm: 'pmall',
 	pmall: function (target, room, user) {
