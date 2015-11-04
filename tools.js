@@ -1018,7 +1018,7 @@ module.exports = (function () {
 			var format = BattleFormats[i];
 			var id = toId(format.name);
 			if (!id) throw new RangeError("Format #" + (i + 1) + " must have a name with alphanumeric characters");
-			if (this.data.Formats[id]) throw new Error("Format #" + (i + 1) + " has a duplicate ID: `" + id + "`");
+			if (this.data.Formats[id])throw new Error("Format #" + (i + 1) + " has a duplicate ID: `" + id + "`");
 			format.effectType = 'Format';
 			if (format.challengeShow === undefined) format.challengeShow = true;
 			if (format.searchShow === undefined) format.searchShow = true;
