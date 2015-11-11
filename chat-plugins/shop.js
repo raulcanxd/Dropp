@@ -8,19 +8,19 @@ tienda: 'shop',
     shop: function (target, room, user) {
         if (!this.canBroadcast()) return false;
         this.sendReplyBox(
-            '<table width="100%" bgcolor="#0080FF" style="border-radius:15px 0px;border-style:solid 2px;border-color:#0B3861;"><tr><td><center><marquee bgcolor="White" style="border-radius:0px 15px;border-style:solid 2px #0B3861;"><font color="#0B3861"><b><p> Bienvenido a la Tienda del Servidor Dropp</b></p></font></marquee><table cellspacing="1" cellpadding="3" target="_blank"><tbody>' +
-            '<hr style="border-style:dashed 2px;">'+
-            '<tr><th><font color="#FFFFFF">Art&iacute;culo</th><th><font color="#FFFFFF">Descripci&oacute;n</th><th><font color="#FFFFFF">Coste</th></tr>' +
-            '<tr><td><font color="#FFFFFF"><b>Chatroom</b></td><td><font color="#FFFFFF">Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam u Otros contenidos inapropiados a ella , sera Borrada.</td><td><font color="#FFFFFF">10000</td></tr>' +
-            '<tr><td><font color="#FFFFFF"><b>Avatar</b></td><td><font color="#FFFFFF">Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Contactar con un Admin para obtener este art&iacute;culo.</td><td><font color="#FFFFFF">6000</td></tr>' +
-            '<tr><td><font color="#FFFFFF"><b>Trainer Card</b></td><td><font color="#FFFFFF">Compra una Tarjeta de Entrenador personalizada (a partir de código html). Contactar con un administrador si el código es muy largo para un solo mensaje. Si no sabes de Html Contacta a un Administrador</td><td><font color="#FFFFFF">5000</td></tr>' +
-            '<tr><td><font color="#FFFFFF"><b>Symbol</b></td><td><font color="#FFFFFF">Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.</td><td><font color="#FFFFFF">1500</td></tr>' +
-            '<tr><td><font color="#FFFFFF"><b>Cambio de Avatar</b></td><td><font color="#FFFFFF">Si ya tienes un avatar personalizado. Puedes cambiarlo por otro diferente.</td><td><font color="#FFFFFF">2500</td></tr>' +
-   			'<tr><td><font color="#FFFFFF"><b>Icono</b></td><td><font color="#FFFFFF">Para conseguir este Articulo, habla con nuestro Administrador The WleDey. <b>NO LO COMPRES</b>. Busca una Imagen de 32x32 y Dasela a The WleDey...Tambien puedes adjuntar el nombre de las salas del Servidor donde quieres que se vea tu Icono (maximo 5)<br><b>OJO:Tu icono puede durar hasta 32 Horas en aparecer</b></td><td><font color="#FFFFFF">2000</td></tr>' +
+            '<center><img src="http://i66.tinypic.com/1zwwf7.png" width="497" height="150"><div style="background:#E0F8F1;"><table><tr><td><center><font color="#0489B1"><b><p> Bienvenido a la Tienda del Servidor Dropp</b></p></font><table cellspacing="1" cellpadding="3" target="_blank"><tbody>' +
+            '<hr style="border-style:dashed;border-width:2px;border-color:#0489B1" width="400">'+
+            '<tr><th><font color="#0489B1">Art&iacute;culo</th><th><font color="#0489B1">Descripci&oacute;n</th><th><font color="#0489B1">Coste</th></tr>' +
+            '<tr><td><font color="#0489B1"><b>Chatroom</b></td><td><font color="#0489B1">Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam u Otros contenidos inapropiados a ella , sera Borrada.</td><td><font color="#0489B1">10000</td></tr>' +
+            '<tr><td><font color="#0489B1"><b>Avatar</b></td><td><font color="#0489B1">Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Contactar con un Admin para obtener este art&iacute;culo.</td><td><font color="#0489B1">6000</td></tr>' +
+            '<tr><td><font color="#0489B1"><b>Trainer Card</b></td><td><font color="#0489B1">Compra una Tarjeta de Entrenador personalizada (a partir de código html). Contactar con un administrador si el código es muy largo para un solo mensaje. Si no sabes de Html Contacta a un Administrador</td><td><font color="#0489B1">5000</td></tr>' +
+            '<tr><td><font color="#0489B1"><b>Symbol</b></td><td><font color="#0489B1">Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.</td><td><font color="#0489B1">1500</td></tr>' +
+            '<tr><td><font color="#0489B1"><b>Cambio de Avatar</b></td><td><font color="#0489B1">Si ya tienes un avatar personalizado. Puedes cambiarlo por otro diferente.</td><td><font color="#0489B1">2500</td></tr>' +
+   			'<tr><td><font color="#0489B1"><b>Icono</b></td><td><font color="#0489B1">Compra un icono de un pokemon al lado de tu nick para 3 salas. Debe ser una imagen 32x32. Contactar con un Admin para obtener este artículo.<br><b>OJO:Tu icono puede durar hasta 32 Horas en aparecer</b></td><td><font color="#0489B1">2000</td></tr>' +
    
-            '</tbody></table><br /><font color="#FFFFFF"> Para comprar un artículo usa el comando <b>/buy (artículo)</b>' +
+            '</tbody></table><br /><font color="#0489B1"> Para comprar un artículo usa el comando <b>/buy (artículo)</b>' +
             '<br /> Algunos artículos solo se pueden comprar contactando con un Administrador. Para más información usa /shophelp' +
-            '</font></center>'
+            '</font></div></center>'
         );
     },
 
