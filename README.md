@@ -1,5 +1,6 @@
-Pokémon Showdown
+Dropp 
 ========================================================================
+### Currently this repository is abandoned
 
 Navigation: [Website][1] | **Server repository** | [Client repository][2]
 
