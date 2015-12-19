@@ -8,7 +8,7 @@ tienda: 'shop',
     shop: function (target, room, user) {
         if (!this.canBroadcast()) return false;
         this.sendReplyBox(
-            '<center><img src="http://i66.tinypic.com/1zwwf7.png" width="497" height="150"><div style="background:#abf6b6;"><table><tr><td><center><font color=#24ff0f><b><p> Bienvenido a la Tienda del Servidor Dropp</b></p></font><table cellspacing="1" cellpadding="3" target="_blank"><tbody>' +
+            '<center><img src="" width="497" height="150"><div style="background:#abf6b6;"><table><tr><td><center><font color=#24ff0f><b><p> Bienvenido a la Tienda del Servidor Dropp</b></p></font><table cellspacing="1" cellpadding="3" target="_blank"><tbody>' +
             '<hr style="border-style:dashed;border-width:2px;border-color:#0489B1" width="400">'+
             '<tr><th><font color="#0489B1">Art&iacute;culo</th><th><font color="#0489B1">Descripci&oacute;n</th><th><font color="#0489B1">Coste</th></tr>' +
             '<tr><td><font color="#0489B1"><b>Chatroom</b></td><td><font color="#0489B1">Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam u Otros contenidos inapropiados a ella , sera Borrada.</td><td><font color="#0489B1">10000</td></tr>' +
@@ -28,7 +28,7 @@ tienda: 'shop',
 	shophelp: function () {
 		if (!this.canBroadcast()) return false;
 		this.sendReplyBox(
-			"<center><h3><b><u><i>Tienda del servidor Dropp- Comandos</i></u></b></h3></center>" +
+			"<center><h3><b><u><i>Tienda del servidor - Comandos</i></u></b></h3></center>" +
 			"<b>Comandos Básicos:</b><br /><br />" +
 			"/shop - Muestra los artículos de la tienda.<br />" +
 			"/buy (artículo) - Compra un artículo de la tienda.<br />" +
