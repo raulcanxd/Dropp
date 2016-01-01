@@ -3,30 +3,30 @@ exports.commands = {
 	 * Shop commands
 	 *********************************************************/
 
-tienda: 'shop',
-    shop: function (target, room, user) {
-        if (!this.canBroadcast()) return false;
-        this.sendReplyBox(
-            '<center><img src="http://images.cooltext.com/4418897.png" width="497" height="150"><div style="background:#7ae673;"><table><tr><td><center><font color="#60e678"><b><p> Bienvenido a la Tienda del Servidor </b></p></font><table cellspacing="1" cellpadding="3" target="_blank"><tbody>' +
-            '<hr style="border-style:dashed;border-width:2px;border-color:#0489B1" width="400">'+
-            '<tr><th><font color="#0489B1">Art&iacute;culo</th><th><font color="#0489B1">Descripci&oacute;n</th><th><font color="#0489B1">Coste</th></tr>' +
-            '<tr><td><font color="#0489B1"><b>Chatroom</b></td><td><font color="#0489B1">Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam u Otros contenidos inapropiados a ella , sera Borrada.</td><td><font color="#0489B1">10000</td></tr>' +
-            '<tr><td><font color="#0489B1"><b>Avatar</b></td><td><font color="#0489B1">Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Contactar con un Admin para obtener este art&iacute;culo.</td><td><font color="#0489B1">6000</td></tr>' +
-            '<tr><td><font color="#0489B1"><b>Trainer Card</b></td><td><font color="#0489B1">Compra una Tarjeta de Entrenador personalizada (a partir de código html). Contactar con un administrador si el código es muy largo para un solo mensaje. Si no sabes de Html Contacta a un Administrador</td><td><font color="#0489B1">5000</td></tr>' +
-            '<tr><td><font color="#0489B1"><b>Symbol</b></td><td><font color="#0489B1">Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.</td><td><font color="#0489B1">1500</td></tr>' +
-            '<tr><td><font color="#0489B1"><b>Cambio de Avatar</b></td><td><font color="#0489B1">Si ya tienes un avatar personalizado. Puedes cambiarlo por otro diferente.</td><td><font color="#0489B1">2500</td></tr>' 
-   
-            '</tbody></table><br /><font color="#0489B1"> Para comprar un artículo usa el comando <b>/buy (artículo)</b>' +
-            '<br /> Algunos artículos solo se pueden comprar contactando con un Administrador. Para más información usa /shophelp' +
-            '</font></div></center>'
-        );
-    },
+	tienda: 'shop',
+	shop: function (target, room, user) {
+		if (!this.canBroadcast()) return false;
+		this.sendReplyBox(
+			'<center><h3><b><u>Tienda del servidor</u></b></h3><table border="1" cellspacing="0" cellpadding="3" target="_blank"><tbody>' +
+			'<tr><th>Art&iacute;culo</th><th>Descripci&oacute;n</th><th>Coste</th></tr>' +
+			'<tr><td>Chatroom</td><td>Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam de comandos / saturación del modlog será borrada.</td><td>10000</td></tr>' +
+			'<tr><td>CustomTC</td><td>Compra una Tarjeta de Entrenador personalizada (a partir de código html). Contactar con un administrador si el código es muy largo para un solo mensaje.</td><td>8000</td></tr>' +
+			'<tr><td>CustomAvatar</td><td>Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Contactar con un Admin para obtener este art&iacute;culo.</td><td>6000</td></tr>' +
+			'<tr><td>Symbol</td><td>Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.</td><td>4000</td></tr>' +
+			'<tr><td>TC</td><td>Compra una Tarjeta de entrenador básica. Con una Imagen modificable con /tcimage y una frase de entrenador modificable con /tcphrase</td><td>3000</td></tr>' +
+			'<tr><td>Avatar</td><td>Si ya tienes un avatar personalizado. Puedes cambiarlo por otro diferente.</td><td>1000</td></tr>' +
+			'<tr><td>Sprite</td><td>Añade la imagen de un Pokemon a tu TC Básica. Máximo 6. Se pueden cambiar los pokemon con el comando /tcpokemon</td><td>100</td></tr>' +
+			'</tbody></table><br /> Para comprar un artículo usa el comando /buy (artículo)' +
+			'<br /> Algunos artículos solo se pueden comprar contactando con un Administrador. Para más información usa /shophelp' +
+			'</center>'
+		);
+	},
 
 	ayudatienda: 'shophelp',
 	shophelp: function () {
 		if (!this.canBroadcast()) return false;
 		this.sendReplyBox(
-			"<center><h3><b><u><i>Tienda del servidor - Comandos</i></u></b></h3></center>" +
+			"<center><h3><b><u>Tienda del servidor - Comandos</u></b></h3></center>" +
 			"<b>Comandos Básicos:</b><br /><br />" +
 			"/shop - Muestra los artículos de la tienda.<br />" +
 			"/buy (artículo) - Compra un artículo de la tienda.<br />" +
@@ -62,8 +62,8 @@ tienda: 'shop',
 		if (!params) return this.sendReply("Usage: /buy object");
 		var article = toId(params[0]);
 		switch (article) {
-			case 'trainercard':
-				prize = 5000;
+			case 'customtc':
+				prize = 8000;
 				if (Shop.getUserMoney(user.name) < prize) return this.sendReply("No tienes suficiente dinero.");
 				var tcUser = Shop.getTrainerCard(user.name);
 				if (!tcUser) {
@@ -111,15 +111,15 @@ tienda: 'shop',
 				return this.sendReply("No se pudo realizar la compra debido a un error al crear la sala '" + params[1] + "'.");
 				break;
 			case 'symbol':
-				prize = 1500;
+				prize = 4000;
 				if (Shop.getUserMoney(user.name) < prize) return this.sendReply("No tienes suficiente dinero.");
 				if (Shop.symbolPermision(user.name)) return this.sendReply("Ya posees este artículo.");
 				Shop.setSymbolPermision(user.name, true);
 				Shop.removeMoney(user.name, prize);
 				return this.sendReply("Has comprado el permiso para usar los comandos /customsymbol y /resetsymbol. Para más información consulta /shophelp.");
 				break;
-			case 'cambiodeavatar':
-				prize = 1500;
+			case 'avatar':
+				prize = 1000;
 				if (Shop.getUserMoney(user.name) < prize) return this.sendReply("No tienes suficiente dinero.");
 				if (!Config.customavatars[user.userid]) return this.sendReply("No tenías un avatar personalizado.");
 				if (params.length !== 2) return this.sendReply("Usa el comando así: /buy avatar,[imagen]");
@@ -128,7 +128,7 @@ tienda: 'shop',
 				Shop.removeMoney(user.name, prize);
 				return this.sendReply("Has solicitado un cambio de tu avatar personalizado. Espera a que un admin revise tu compra.");
 				break;
-			case 'avatar':
+			case 'customavatar':
 				prize = 6000;
 				if (Shop.getUserMoney(user.name) < prize) return this.sendReply("No tienes suficiente dinero.");
 				if (Config.customavatars[user.userid]) return this.sendReply("Ya habías comprado este artículo. Para cambiar tu avatar compra la opcion Avatar");
@@ -267,7 +267,7 @@ tienda: 'shop',
 			return this.sendReply("El usuario no tenía ningún permiso que quitar.");
 		}
 	},
-
+	
 	hideauth: 'customsymbol',
 	symbol: 'customsymbol',
 	simbolo: 'customsymbol',
@@ -277,7 +277,7 @@ tienda: 'shop',
 		if (!target || target.length > 1) return this.sendReply('Debes especificar un caracter como simbolo.');
 		if (target.match(/[A-Za-z0-9\d]+/g)) return this.sendReply('Tu simbolo no puede ser un caracter alfanumerico.');
 		if (!user.can('customsymbol')) {
-			if ('?!$+\u262A\u2605%@\u2295&~#'.indexOf(target) >= 0) return this.sendReply('No tienes permiso para elegir un rango como simbolo');
+			if ('?!$+\u2605%@\u2295&~#'.indexOf(target) >= 0) return this.sendReply('No tienes permiso para elegir un rango como simbolo');
 		}
 		user.getIdentity = function (roomid) {
 			if (this.locked) {
