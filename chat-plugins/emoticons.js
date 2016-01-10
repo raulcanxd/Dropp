@@ -29,6 +29,22 @@ var emotes = {
 	':hola:': 'http://k40.kn3.net/9788B4B8D.gif',
 	':senpai:': 'http://cbc.pokecommunity.com/config/emoticons/senpai.png',
 	':naruto:': 'http://lh4.ggpht.com/_QwvI2Zom950/TAdYX8-5gQI/AAAAAAAAAu0/2ng4u2V9-1Y/s128/naruto.gif'
+	'facepalm': 'http://i.imgur.com/lv3GmpM.png'
+	':uh:': 'http://i.imgur.com/Z5lOwfZ.png'
+	':troll:': 'http://cdn.overclock.net/a/a0/50x50px-ZC-a0e3f9a7_troll-troll-face.png'
+	':dff:': 'http://i.imgur.com/anY1jf8.png'
+	':uhh:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-006.gif?1302022356'
+	':ujj:': 'http://emoticoner.com/files/emoticons/text_line/text-line-smiley-007.gif?1302022356'
+	':._o:': 'http://emoticoner.com/files/emoticons/leaf/tongue-leaf-emoticon.gif?1292794626'
+	':leaf:': 'http://emoticoner.com/files/emoticons/leaf/happy-leaf-emoticon.gif?1292794623'
+	':lengu2:': 'http://emoticoner.com/files/emoticons/cheetah/tongue-cheetah-emoticon.gif?1302786124'
+	':raichu:': 'http://cbc.pokecommunity.com/config/emoticons/raichu.png'
+	':ditto:': 'http://cbc.pokecommunity.com/config/emoticons/ditto.png'
+	':moo:': 'http://cbc.pokecommunity.com/config/emoticons/moo.gif'
+	':wynaut:': 'http://cbc.pokecommunity.com/config/emoticons/wynaut.png'
+	':taco:': 'http://cbc.pokecommunity.com/config/emoticons/taco.png'
+	':superman:': 'http://cbc.pokecommunity.com/config/emoticons/superman.png'
+	
 };
 
 var emotesKeys = Object.keys(emotes);
